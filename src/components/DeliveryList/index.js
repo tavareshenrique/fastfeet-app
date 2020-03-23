@@ -18,6 +18,7 @@ export default function DeliveryList({ typeFilter }) {
 
   const [dataDelivery, setDataDelivery] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingDelivery, setLoadingDelivery] = useState(false);
   const [page, setPage] = useState(2);
 
   useEffect(() => {
@@ -35,13 +36,13 @@ export default function DeliveryList({ typeFilter }) {
           delivered: true,
         };
       }
-      setLoading(true);
+      setLoadingDelivery(true);
       const response = await api.get(`deliverymen/${id}/deliveries`, {
         params,
       });
 
       setDataDelivery(response.data);
-      setLoading(false);
+      setLoadingDelivery(false);
     }
 
     fetchDelivery();
@@ -51,7 +52,7 @@ export default function DeliveryList({ typeFilter }) {
     async function fetchDelivery() {
       const id = dataUser.map((user) => user.id);
 
-      setLoading(true);
+      setLoadingDelivery(true);
       const response = await api.get(`deliverymen/${id}/deliveries`, {
         params: {
           page: 1,
@@ -59,7 +60,7 @@ export default function DeliveryList({ typeFilter }) {
       });
 
       setDataDelivery(response.data);
-      setLoading(false);
+      setLoadingDelivery(false);
     }
 
     fetchDelivery();
@@ -71,11 +72,11 @@ export default function DeliveryList({ typeFilter }) {
     let params = '';
     if (typeFilter === 'pending') {
       params = {
-        page: 1,
+        page,
       };
     } else {
       params = {
-        page: 1,
+        page,
         delivered: true,
       };
     }
@@ -105,7 +106,7 @@ export default function DeliveryList({ typeFilter }) {
 
   return (
     <>
-      {!loading ? (
+      {!loadingDelivery ? (
         <FlatList
           data={dataDelivery}
           renderItem={({ item }) => <DeliveryItem data={item} />}
