@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { FlatList, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
+
+import Lottie from 'lottie-react-native';
 
 import api from '~/services/api';
 
 import DeliveryItem from './DeliveryItem';
 
-import { Loading } from './styles';
+import deliveryLoading from '~/assets/lottie/delivery.json';
 
-export default function DeliveryList() {
+import { Loading, LoadingDelivery } from './styles';
+
+export default function DeliveryList({ typeFilter }) {
   const dataUser = useSelector((state) => state.auth.data);
 
   const [dataDelivery, setDataDelivery] = useState([]);
@@ -18,12 +23,43 @@ export default function DeliveryList() {
   useEffect(() => {
     async function fetchDelivery() {
       const id = dataUser.map((user) => user.id);
+
+      let params = '';
+      if (typeFilter === 'pending') {
+        params = {
+          page: 1,
+        };
+      } else {
+        params = {
+          page: 1,
+          delivered: true,
+        };
+      }
+      setLoading(true);
+      const response = await api.get(`deliverymen/${id}/deliveries`, {
+        params,
+      });
+
+      setDataDelivery(response.data);
+      setLoading(false);
+    }
+
+    fetchDelivery();
+  }, [typeFilter, dataUser]);
+
+  useEffect(() => {
+    async function fetchDelivery() {
+      const id = dataUser.map((user) => user.id);
+
+      setLoading(true);
       const response = await api.get(`deliverymen/${id}/deliveries`, {
         params: {
           page: 1,
         },
       });
+
       setDataDelivery(response.data);
+      setLoading(false);
     }
 
     fetchDelivery();
@@ -32,26 +68,32 @@ export default function DeliveryList() {
   async function loadDelivery() {
     const id = dataUser.map((user) => user.id);
 
-    setLoading(true);
+    let params = '';
+    if (typeFilter === 'pending') {
+      params = {
+        page: 1,
+      };
+    } else {
+      params = {
+        page: 1,
+        delivered: true,
+      };
+    }
 
+    setLoading(true);
     const response = await api.get(`deliverymen/${id}/deliveries`, {
-      params: {
-        page,
-      },
+      params,
     });
 
     response.data.forEach((delivery) => {
-      setDataDelivery((oldDataDelivery) => [
-        ...oldDataDelivery,
-        delivery,
-      ]);
+      setDataDelivery((oldDataDelivery) => [...oldDataDelivery, delivery]);
     });
 
     setPage(page + 1);
     setLoading(false);
   }
 
-  function renderFooter() {
+  function renderLoading() {
     if (!loading) return null;
 
     return (
@@ -62,16 +104,28 @@ export default function DeliveryList() {
   }
 
   return (
-    <FlatList
-      data={dataDelivery}
-      renderItem={({ item }) => <DeliveryItem data={item} />}
-      keyExtractor={(item) => item.id.toString()}
-      onEndReached={({ distanceFromEnd }) => {
-        if (distanceFromEnd < 0) return;
-        loadDelivery();
-      }}
-      onEndReachedThreshold={0.1}
-      ListFooterComponent={renderFooter}
-    />
+    <>
+      {!loading ? (
+        <FlatList
+          data={dataDelivery}
+          renderItem={({ item }) => <DeliveryItem data={item} />}
+          keyExtractor={(item) => item.id.toString()}
+          onEndReached={({ distanceFromEnd }) => {
+            if (distanceFromEnd < 0) return;
+            loadDelivery();
+          }}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={renderLoading}
+        />
+      ) : (
+        <LoadingDelivery>
+          <Lottie resizeMode="contain" source={deliveryLoading} autoPlay loop />
+        </LoadingDelivery>
+      )}
+    </>
   );
 }
+
+DeliveryList.propTypes = {
+  typeFilter: PropTypes.string.isRequired,
+};

@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 
 import DeliveryList from '~/components/DeliveryList';
 
-// import avatar from '~/assets/avatar.jpg';
-
 import {
   Container,
   Header,
@@ -23,6 +21,8 @@ import {
 
 export default function Delivery() {
   const dataUser = useSelector((state) => state.auth.data);
+
+  const [typeFilter, setTypeFilter] = useState('pending');
 
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(null);
@@ -55,13 +55,17 @@ export default function Delivery() {
         <HeaderContent>
           <Title>Entregas</Title>
           <FilterContaier>
-            <Filter active>Pendentes</Filter>
-            <Filter>Entregues</Filter>
+            <TouchableOpacity onPress={() => setTypeFilter('pending')}>
+              <Filter active={typeFilter === 'pending'}>Pendentes</Filter>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setTypeFilter('delivered')}>
+              <Filter active={typeFilter === 'delivered'}>Entregues</Filter>
+            </TouchableOpacity>
           </FilterContaier>
         </HeaderContent>
       </Content>
 
-      <DeliveryList />
+      <DeliveryList typeFilter={typeFilter} />
     </Container>
   );
 }
