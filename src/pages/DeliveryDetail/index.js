@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import { styles } from '~/utils/shadow';
 
 import {
   Container,
@@ -24,22 +26,6 @@ import {
 } from './styles';
 
 export default function DeliveryDetail({ navigation }) {
-  console.tron.log('{ navigation }', navigation);
-
-  function elevationShadowStyle(elevation) {
-    return {
-      elevation,
-      shadowColor: 'black',
-      shadowOffset: { width: 0, height: 0.5 * elevation },
-      shadowOpacity: 0.3,
-      shadowRadius: 0.8 * elevation,
-    };
-  }
-
-  const styles = StyleSheet.create({
-    shadow: { ...elevationShadowStyle(5) },
-  });
-
   return (
     <Container>
       <Header>
@@ -100,7 +86,7 @@ export default function DeliveryDetail({ navigation }) {
       </Header>
 
       <Menu style={styles.shadow}>
-        <MenuContent>
+        <MenuContent onPress={() => navigation.navigate('ProblemReport')}>
           <Ionicons name="md-close-circle-outline" size={45} color="red" />
           <LabelMenu>Informar Problema</LabelMenu>
         </MenuContent>

@@ -6,8 +6,9 @@ import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
-
 import Timeline from '~/components/Timeline';
+
+import { styles } from '~/utils/shadow';
 
 import {
   ContentDelivery,
@@ -25,20 +26,6 @@ import {
 } from './styles';
 
 export default function DeliveryItem({ data, navigation }) {
-  function elevationShadowStyle(elevation) {
-    return {
-      elevation,
-      shadowColor: 'black',
-      shadowOffset: { width: 0, height: 0.5 * elevation },
-      shadowOpacity: 0.3,
-      shadowRadius: 0.8 * elevation,
-    };
-  }
-
-  const styles = StyleSheet.create({
-    shadow: { ...elevationShadowStyle(5), backgroundColor: 'white' },
-  });
-
   function statusDelivery(dataStatus) {
     if (dataStatus.end_date) {
       return 'done';
