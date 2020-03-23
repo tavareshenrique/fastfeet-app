@@ -10,7 +10,7 @@ import InputProblemReport from './InputProblemReport';
 
 import { styles } from '~/utils/shadow';
 
-import { Header, Title, Card, HeaderTitle } from './styles';
+import { Header, Title, HeaderTitle, Card } from './styles';
 
 export default function ProblemReport({ navigation }) {
   const formRef = useRef(null);
