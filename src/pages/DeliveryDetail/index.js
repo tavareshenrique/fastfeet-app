@@ -93,7 +93,7 @@ export default function DeliveryDetail({ navigation }) {
 
         <Line />
 
-        <MenuContent>
+        <MenuContent onPress={() => navigation.navigate('ViewProblems')}>
           <Ionicons
             name="md-information-circle-outline"
             size={45}
