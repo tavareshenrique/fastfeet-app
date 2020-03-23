@@ -17,7 +17,7 @@ export const Header = styled.View`
   margin: 20px;
 `;
 
-export const Avatar = styled.Image`
+export const AvatarImage = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 50px;

@@ -5,11 +5,12 @@ import { TouchableOpacity } from 'react-native';
 import { signOut } from '~/store/modules/auth/actions';
 
 import DeliveryList from '~/components/DeliveryList';
+import Avatar from '~/components/Avatar';
 
 import {
   Container,
   Header,
-  Avatar,
+  AvatarImage,
   Bio,
   Welcome,
   Name,
@@ -43,7 +44,11 @@ export default function Delivery() {
   return (
     <Container>
       <Header>
-        <Avatar source={{ uri: avatar }} />
+        {avatar ? (
+          <AvatarImage source={{ uri: avatar }} />
+        ) : (
+          <Avatar name={name} />
+        )}
 
         <Bio>
           <Welcome>Bem-vindo de volta,</Welcome>
