@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { signInRequest } from '~/store/modules/auth/actions';
+
 import logo from '~/assets/fastfeet-logo.png';
 
 import Background from '~/components/Background';
-import { signInRequest } from '~/store/modules/auth/actions';
 
 import { Container, Form, FormInput, SubmitButton } from './styles';
 
