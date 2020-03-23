@@ -1,19 +1,67 @@
-import React from 'react';
-// import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 
-// import { Container } from './styles';
+import DeliveryList from '~/components/DeliveryList';
+
+// import avatar from '~/assets/avatar.jpg';
+
+import {
+  Container,
+  Header,
+  Avatar,
+  Bio,
+  Welcome,
+  Name,
+  Exit,
+  Content,
+  HeaderContent,
+  Title,
+  FilterContaier,
+  Filter,
+} from './styles';
 
 export default function Delivery() {
-  // const data = useSelector((state) => state.auth.data);
+  const dataUser = useSelector((state) => state.auth.data);
 
-  // useEffect(() => {
-  //   console.tron.log('data', data);
-  // }, [data]);
+  const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState(null);
+
+  useEffect(() => {
+    dataUser.forEach((user) => {
+      setName(user.name);
+
+      if (user.avatar) {
+        setAvatar(user.avatar.url);
+      }
+    });
+  }, [dataUser]);
 
   return (
-    <View>
-      <Text>Delivery</Text>
-    </View>
+    <Container>
+      <Header>
+        <Avatar source={{ uri: avatar }} />
+
+        <Bio>
+          <Welcome>Bem-vindo de volta,</Welcome>
+          <Name>{name}</Name>
+        </Bio>
+        <TouchableOpacity>
+          <Exit name="exit-to-app" size={30} color="red" />
+        </TouchableOpacity>
+      </Header>
+
+      <Content>
+        <HeaderContent>
+          <Title>Entregas</Title>
+          <FilterContaier>
+            <Filter active>Pendentes</Filter>
+            <Filter>Entregues</Filter>
+          </FilterContaier>
+        </HeaderContent>
+      </Content>
+
+      <DeliveryList />
+    </Container>
   );
 }
