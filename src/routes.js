@@ -7,18 +7,22 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from '~/pages/SignIn';
-import Delivery from '~/pages/Delivery';
+
 import Profile from '~/pages/Profile';
+
+import Delivery from '~/pages/Delivery';
 import DeliveryDetail from '~/pages/DeliveryDetail';
+import ProblemReport from '~/pages/DeliveryDetail/ProblemReport';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function DeliveryScreen() {
   return (
-    <Stack.Navigator headerMode="none" initialRouteName="DeliveryDetail">
+    <Stack.Navigator initialRouteName="ProblemReport" headerMode="none">
       <Stack.Screen name="Delivery" component={Delivery} />
       <Stack.Screen name="DeliveryDetail" component={DeliveryDetail} />
+      <Stack.Screen name="ProblemReport" component={ProblemReport} />
     </Stack.Navigator>
   );
 }
