@@ -9,9 +9,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignIn from '~/pages/SignIn';
 import Delivery from '~/pages/Delivery';
 import Profile from '~/pages/Profile';
+import DeliveryDetail from '~/pages/DeliveryDetail';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
+
+function DeliveryScreen() {
+  return (
+    <Stack.Navigator headerMode="none" initialRouteName="DeliveryDetail">
+      <Stack.Screen name="Delivery" component={Delivery} />
+      <Stack.Screen name="DeliveryDetail" component={DeliveryDetail} />
+    </Stack.Navigator>
+  );
+}
 
 export default function createRouter(isSigned = false) {
   return !isSigned ? (
@@ -38,8 +48,8 @@ export default function createRouter(isSigned = false) {
         }}
       >
         <Tabs.Screen
-          name="Dashboard"
-          component={Delivery}
+          name="Delivery"
+          component={DeliveryScreen}
           options={{
             tabBarLabel: 'Entregas',
             tabBarIcon: ({ color }) => (
@@ -48,7 +58,7 @@ export default function createRouter(isSigned = false) {
           }}
         />
         <Tabs.Screen
-          name="Perfil"
+          name="Profile"
           component={Profile}
           options={{
             tabBarLabel: 'Profile',
