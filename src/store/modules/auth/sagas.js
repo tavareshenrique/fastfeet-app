@@ -15,6 +15,14 @@ export function* signIn({ payload }) {
       },
     });
 
+    console.tron.log('response', response.data);
+
+    if (response.data.length === 0) {
+      yield put(signFailure());
+      Alert.alert('Falha na autenticação', 'ID de cadastro não encontrado');
+      return;
+    }
+
     yield put(signInSuccess(response.data));
   } catch (err) {
     Alert.alert(
