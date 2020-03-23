@@ -35,7 +35,8 @@ export default function createRouter(isSigned = false) {
             backgroundColor: '#fff',
           },
           keyboardHidesTabBar: true,
-        }}>
+        }}
+      >
         <Tabs.Screen
           name="Dashboard"
           component={Delivery}

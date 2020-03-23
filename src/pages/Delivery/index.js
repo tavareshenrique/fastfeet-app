@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+
+import { signOut } from '~/store/modules/auth/actions';
 
 import DeliveryList from '~/components/DeliveryList';
 
@@ -20,6 +22,7 @@ import {
 } from './styles';
 
 export default function Delivery() {
+  const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.auth.data);
 
   const [typeFilter, setTypeFilter] = useState('pending');
@@ -46,7 +49,7 @@ export default function Delivery() {
           <Welcome>Bem-vindo de volta,</Welcome>
           <Name>{name}</Name>
         </Bio>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => dispatch(signOut())}>
           <Exit name="exit-to-app" size={30} color="red" />
         </TouchableOpacity>
       </Header>

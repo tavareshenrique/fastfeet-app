@@ -28,7 +28,7 @@ export default function SignIn() {
         <Form>
           <FormInput
             keyboardType="number-pad"
-            autoCorrect={true}
+            autoCorrect
             autoCapitalize="none"
             placeholder="Insira seu ID de cadastro"
             returnKeyType="next"
