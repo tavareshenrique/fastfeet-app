@@ -16,8 +16,6 @@ const primaryColor5 = 'rgba(187, 218, 50, 1)';
 const secondaryColor5 = 'rgba(187, 218, 50, 0.1)';
 
 const primaryColorNophoto = (color) => {
-  console.tron.log('color', color);
-
   if (color === 1) {
     return primaryColor1;
   }
