@@ -13,16 +13,18 @@ import Profile from '~/pages/Profile';
 import Delivery from '~/pages/Delivery';
 import DeliveryDetail from '~/pages/DeliveryDetail';
 import ProblemReport from '~/pages/DeliveryDetail/ProblemReport';
+import ViewProblems from '~/pages/DeliveryDetail/ViewProblems';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function DeliveryScreen() {
   return (
-    <Stack.Navigator initialRouteName="ProblemReport" headerMode="none">
+    <Stack.Navigator initialRouteName="ViewProblems" headerMode="none">
       <Stack.Screen name="Delivery" component={Delivery} />
       <Stack.Screen name="DeliveryDetail" component={DeliveryDetail} />
       <Stack.Screen name="ProblemReport" component={ProblemReport} />
+      <Stack.Screen name="ViewProblems" component={ViewProblems} />
     </Stack.Navigator>
   );
 }
