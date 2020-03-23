@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity, Animated, View } from 'react-native';
 
@@ -22,7 +23,7 @@ import {
   Filter,
 } from './styles';
 
-export default function Delivery() {
+export default function Delivery({ navigation }) {
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.auth.data);
 
@@ -89,7 +90,13 @@ export default function Delivery() {
         </HeaderContent>
       </Content>
 
-      <DeliveryList typeFilter={typeFilter} />
+      <DeliveryList typeFilter={typeFilter} navigation={navigation} />
     </Container>
   );
 }
+
+Delivery.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

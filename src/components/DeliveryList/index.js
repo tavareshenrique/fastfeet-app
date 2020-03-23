@@ -13,7 +13,7 @@ import deliveryLoading from '~/assets/lottie/delivery.json';
 
 import { Loading, LoadingDelivery } from './styles';
 
-export default function DeliveryList({ typeFilter }) {
+export default function DeliveryList({ typeFilter, navigation }) {
   const dataUser = useSelector((state) => state.auth.data);
 
   const [dataDelivery, setDataDelivery] = useState([]);
@@ -109,7 +109,9 @@ export default function DeliveryList({ typeFilter }) {
       {!loadingDelivery ? (
         <FlatList
           data={dataDelivery}
-          renderItem={({ item }) => <DeliveryItem data={item} />}
+          renderItem={({ item }) => (
+            <DeliveryItem data={item} navigation={navigation} />
+          )}
           keyExtractor={(item) => item.id.toString()}
           onEndReached={({ distanceFromEnd }) => {
             if (distanceFromEnd < 0) return;
@@ -129,4 +131,7 @@ export default function DeliveryList({ typeFilter }) {
 
 DeliveryList.propTypes = {
   typeFilter: PropTypes.string.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };

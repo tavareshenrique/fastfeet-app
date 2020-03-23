@@ -24,7 +24,7 @@ import {
   CityContent,
 } from './styles';
 
-export default function DeliveryItem({ data }) {
+export default function DeliveryItem({ data, navigation }) {
   function elevationShadowStyle(elevation) {
     return {
       elevation,
@@ -66,20 +66,18 @@ export default function DeliveryItem({ data }) {
           <DataContent>
             <Label>Data</Label>
             <DataDelivery>
-              {format(
-                new Date(data.recipient.createdAt),
-                'dd/MM/yyyy',
-                {
-                  locale: pt,
-                },
-              )}
+              {format(new Date(data.recipient.createdAt), 'dd/MM/yyyy', {
+                locale: pt,
+              })}
             </DataDelivery>
           </DataContent>
           <CityContent>
             <Label>Cidade</Label>
             <CityDelivery>{data.recipient.city}</CityDelivery>
           </CityContent>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('DeliveryDetail')}
+          >
             <ViewDetail>Ver detalhes</ViewDetail>
           </TouchableOpacity>
         </FooterContent>
@@ -95,5 +93,8 @@ DeliveryItem.propTypes = {
       createdAt: PropTypes.string,
       city: PropTypes.string,
     }),
+  }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
