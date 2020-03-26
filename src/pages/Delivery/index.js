@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity, Animated, View } from 'react-native';
@@ -33,6 +33,16 @@ export default function Delivery({ navigation }) {
 
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(null);
+
+  const formatName = useCallback((nameUser) => {
+    if (nameUser.length > 6) {
+      const splitName = nameUser.split(' ');
+
+      return `${splitName[0]} ${splitName[1][0]}.`;
+    }
+
+    return '';
+  }, []);
 
   useEffect(() => {
     dataUser.forEach((user) => {
@@ -69,7 +79,7 @@ export default function Delivery({ navigation }) {
 
         <Bio>
           <Welcome>Bem-vindo de volta,</Welcome>
-          <Name>{name}</Name>
+          <Name>{formatName(name)}</Name>
         </Bio>
         <TouchableOpacity onPress={() => dispatch(signOut())}>
           <Exit name="exit-to-app" size={30} color="red" />
