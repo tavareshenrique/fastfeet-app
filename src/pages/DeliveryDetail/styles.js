@@ -22,7 +22,7 @@ export const SecondaryCard = styled.View`
 
   margin-right: 30px;
   margin-left: 30px;
-  margin-top: 180px;
+  margin-top: ${(props) => (props.heightCard === 238 ? '193px' : '178px')};
 `;
 
 export const CardInformation = styled.View`
@@ -68,7 +68,7 @@ export const MenuCard = styled.View`
 
   margin-right: 30px;
   margin-left: 30px;
-  margin-top: 8px;
+  margin-top: 5px;
   margin-bottom: 8px;
 `;
 
@@ -80,6 +80,8 @@ export const MenuButton = styled.TouchableOpacity`
 
 export const MenuText = styled.Text`
   text-align: center;
+  font-weight: 700;
+  color: #7a7a7a;
 `;
 
 export const Line = styled.View`
