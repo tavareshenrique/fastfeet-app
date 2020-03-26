@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { CommonActions } from '@react-navigation/native';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
+import { formatDate } from '~/utils/dateFormat';
 import Timeline from '~/components/Timeline';
 
 import { styles } from '~/utils/shadow';
 
-import {
-  ContentDelivery,
+import {ContentDelivery,
   HeaderDelivery,
   TitleContent,
   TitleProduct,
@@ -21,8 +20,7 @@ import {
   ViewDetail,
   Label,
   DataContent,
-  CityContent,
-} from './styles';
+  CityContent,} from './styles';
 
 export default function DeliveryItem({ data, navigation }) {
   function statusDelivery(dataStatus) {
@@ -51,18 +49,23 @@ export default function DeliveryItem({ data, navigation }) {
         <FooterContent>
           <DataContent>
             <Label>Data</Label>
-            <LabelData>
-              {format(new Date(data.recipient.createdAt), 'dd/MM/yyyy', {
-                locale: pt,
-              })}
-            </LabelData>
+            <LabelData>{formatDate(data.recipient.createdAt)}</LabelData>
           </DataContent>
           <CityContent>
             <Label>Cidade</Label>
             <LabelData>{data.recipient.city}</LabelData>
           </CityContent>
           <TouchableOpacity
-            onPress={() => navigation.navigate('DeliveryDetail')}
+            onPress={() => {
+              navigation.dispatch(
+                CommonActions.navigate({
+                  name: 'DeliveryDetail',
+                  params: {
+                    data,
+                  },
+                }),
+              );
+            }}
           >
             <ViewDetail>Ver detalhes</ViewDetail>
           </TouchableOpacity>
@@ -81,6 +84,7 @@ DeliveryItem.propTypes = {
     }),
   }).isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    navigate: PropTypes.func,
+    dispatch: PropTypes.func,
   }).isRequired,
 };
