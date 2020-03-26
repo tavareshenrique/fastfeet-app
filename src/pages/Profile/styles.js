@@ -32,3 +32,9 @@ export const LabelData = styled.Text`
   font-weight: bold;
   font-size: 21px;
 `;
+
+export const AvatarImage = styled.Image`
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+`;
