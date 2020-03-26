@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Lottie from 'lottie-react-native';
 import { FlatList, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import Lottie from 'lottie-react-native';
-
 import api from '~/services/api';
+
+import LottieComponent from '~/components/LottieComponent';
 
 import DeliveryItem from './DeliveryItem';
 
 import deliveryLoading from '~/assets/lottie/delivery.json';
+import empty from '~/assets/lottie/empty.json';
 
-import { Loading, LoadingDelivery } from './styles';
+import { Loading } from './styles';
 
 export default function DeliveryList({ typeFilter, navigation }) {
   const dataUser = useSelector((state) => state.auth.data);
@@ -107,23 +109,33 @@ export default function DeliveryList({ typeFilter, navigation }) {
   return (
     <>
       {!loadingDelivery ? (
-        <FlatList
-          data={dataDelivery}
-          renderItem={({ item }) => (
-            <DeliveryItem data={item} navigation={navigation} />
+        <>
+          {dataDelivery.length !== 0 ? (
+            <>
+              <FlatList
+                data={dataDelivery}
+                renderItem={({ item }) => (
+                  <DeliveryItem data={item} navigation={navigation} />
+                )}
+                keyExtractor={(item) => item.id.toString()}
+                onEndReached={({ distanceFromEnd }) => {
+                  if (distanceFromEnd < 0) return;
+                  loadDelivery();
+                }}
+                onEndReachedThreshold={0.1}
+                ListFooterComponent={renderLoading}
+              />
+            </>
+          ) : (
+            <LottieComponent>
+              <Lottie resizeMode="contain" source={empty} autoPlay loop />
+            </LottieComponent>
           )}
-          keyExtractor={(item) => item.id.toString()}
-          onEndReached={({ distanceFromEnd }) => {
-            if (distanceFromEnd < 0) return;
-            loadDelivery();
-          }}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={renderLoading}
-        />
+        </>
       ) : (
-        <LoadingDelivery>
+        <LottieComponent>
           <Lottie resizeMode="contain" source={deliveryLoading} autoPlay loop />
-        </LoadingDelivery>
+        </LottieComponent>
       )}
     </>
   );
