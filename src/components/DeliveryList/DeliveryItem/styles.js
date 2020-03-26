@@ -48,20 +48,14 @@ export const CityContent = styled.View`
   flex-direction: column;
 `;
 
-export const DataDelivery = styled.Text`
+export const LabelData = styled.Text`
   color: #444444;
   font-weight: bold;
-  font-size: 15px;
-`;
-
-export const CityDelivery = styled.Text`
-  color: #444444;
-  font-weight: bold;
-  font-size: 15px;
+  font-size: 12px;
 `;
 
 export const ViewDetail = styled.Text`
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
   color: #8f71ea;
 `;

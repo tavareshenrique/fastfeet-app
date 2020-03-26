@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -17,8 +17,7 @@ import {
   TitleProduct,
   FooterDelivery,
   FooterContent,
-  DataDelivery,
-  CityDelivery,
+  LabelData,
   ViewDetail,
   Label,
   DataContent,
@@ -52,15 +51,15 @@ export default function DeliveryItem({ data, navigation }) {
         <FooterContent>
           <DataContent>
             <Label>Data</Label>
-            <DataDelivery>
+            <LabelData>
               {format(new Date(data.recipient.createdAt), 'dd/MM/yyyy', {
                 locale: pt,
               })}
-            </DataDelivery>
+            </LabelData>
           </DataContent>
           <CityContent>
             <Label>Cidade</Label>
-            <CityDelivery>{data.recipient.city}</CityDelivery>
+            <LabelData>{data.recipient.city}</LabelData>
           </CityContent>
           <TouchableOpacity
             onPress={() => navigation.navigate('DeliveryDetail')}
