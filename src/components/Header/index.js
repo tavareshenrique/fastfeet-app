@@ -9,12 +9,24 @@ import { Container, Content, Title } from './styles';
 export default function Header({ title, handleBack }) {
   return (
     <Container>
-      <TouchableOpacity onPress={handleBack}>
+      <TouchableOpacity
+        onPress={handleBack}
+        style={{
+          height: 50,
+          width: 30,
+        }}
+      >
         <Icon name="ios-arrow-back" size={30} color="#FFF" />
       </TouchableOpacity>
 
       <Content>
-        <Title>{title}</Title>
+        <Title
+          style={{
+            marginRight: 30,
+          }}
+        >
+          {title}
+        </Title>
       </Content>
     </Container>
   );
