@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Container, Name } from './styles';
 
-export default function Avatar({ name }) {
+export default function Avatar({ name, size }) {
   const [color, setColor] = useState(null);
 
   const shortName = useCallback(() => {
@@ -23,12 +23,17 @@ export default function Avatar({ name }) {
   }, [name]);
 
   return (
-    <Container color={color}>
+    <Container color={color} size={size}>
       <Name color={color}>{shortName()}</Name>
     </Container>
   );
 }
 
+Avatar.defaultProps = {
+  size: 100,
+};
+
 Avatar.propTypes = {
   name: PropTypes.string.isRequired,
+  size: PropTypes.number,
 };

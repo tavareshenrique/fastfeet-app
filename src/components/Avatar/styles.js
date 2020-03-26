@@ -60,10 +60,10 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
 
-  width: 100px;
-  height: 100px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 
-  border-radius: 50px;
+  border-radius: ${(props) => props.size / 2}px;
   border: 2px dashed ${(props) => primaryColorNophoto(props.color)};
   background: ${(props) => secondaryColorNophoto(props.color)};
 `;
