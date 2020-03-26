@@ -14,18 +14,23 @@ import Delivery from '~/pages/Delivery';
 import DeliveryDetail from '~/pages/DeliveryDetail';
 import ProblemReport from '~/pages/DeliveryDetail/ProblemReport';
 import ViewProblems from '~/pages/DeliveryDetail/ViewProblems';
+import ConfirmDelivery from '~/pages/DeliveryDetail/ConfirmDelivery';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function DeliveryScreen() {
   return (
-    <Stack.Navigator initialRouteName="ViewProblems" headerMode="none">
-      <Stack.Screen name="Delivery" component={Delivery} />
-      <Stack.Screen name="DeliveryDetail" component={DeliveryDetail} />
-      <Stack.Screen name="ProblemReport" component={ProblemReport} />
-      <Stack.Screen name="ViewProblems" component={ViewProblems} />
-    </Stack.Navigator>
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
+      <Stack.Navigator initialRouteName="Delivery" headerMode="none">
+        <Stack.Screen name="Delivery" component={Delivery} />
+        <Stack.Screen name="DeliveryDetail" component={DeliveryDetail} />
+        <Stack.Screen name="ProblemReport" component={ProblemReport} />
+        <Stack.Screen name="ViewProblems" component={ViewProblems} />
+        <Stack.Screen name="ConfirmDelivery" component={ConfirmDelivery} />
+      </Stack.Navigator>
+    </>
   );
 }
 
