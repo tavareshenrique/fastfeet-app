@@ -22,7 +22,7 @@ export const SecondaryCard = styled.View`
 
   margin-right: 30px;
   margin-left: 30px;
-  margin-top: 150px;
+  margin-top: 180px;
 `;
 
 export const CardInformation = styled.View`
@@ -39,16 +39,22 @@ export const CardTitle = styled.Text`
 `;
 
 export const DataInformation = styled.View`
-  padding: 5px;
+  padding: 10px;
 `;
 
 export const Label = styled.Text`
-  color: #000;
+  color: #9e9e9e;
+  font-weight: bold;
   font-size: 14px;
 `;
 
 export const Data = styled.Text`
   font-size: 13px;
+  color: #9e9e9e;
+`;
+
+export const DateContent = styled.View`
+  flex-direction: row;
 `;
 
 export const MenuCard = styled.View`
@@ -63,6 +69,7 @@ export const MenuCard = styled.View`
   margin-right: 30px;
   margin-left: 30px;
   margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 export const MenuButton = styled.TouchableOpacity`

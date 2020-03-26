@@ -19,6 +19,7 @@ import {
   DataInformation,
   Label,
   Data,
+  DateContent,
   MenuButton,
   MenuText,
   Line,
@@ -40,17 +41,17 @@ export default function DeliveryDetail({ navigation }) {
           </CardInformation>
 
           <DataInformation>
-            <Label>DESTINTÁRIO</Label>
+            <Label>DESTINATÁRIO</Label>
             <Data>Lorem ipsum dolor sit amet.</Data>
           </DataInformation>
 
           <DataInformation>
-            <Label>DESTINTÁRIO</Label>
+            <Label>ENDEREÇO DE ENTREGA</Label>
             <Data>Lorem ipsum dolor sit amet.</Data>
           </DataInformation>
 
           <DataInformation>
-            <Label>DESTINTÁRIO</Label>
+            <Label>PRODUTO</Label>
             <Data>Lorem ipsum dolor sit amet.</Data>
           </DataInformation>
         </PrimaryCard>
@@ -62,19 +63,21 @@ export default function DeliveryDetail({ navigation }) {
           </CardInformation>
 
           <DataInformation>
-            <Label>DESTINTÁRIO</Label>
+            <Label>STATUS</Label>
             <Data>Lorem ipsum dolor sit amet.</Data>
           </DataInformation>
 
-          <DataInformation>
-            <Label>DESTINTÁRIO</Label>
-            <Data>Lorem ipsum dolor sit amet.</Data>
-          </DataInformation>
+          <DateContent>
+            <DataInformation>
+              <Label>DATA DE RETIRADA</Label>
+              <Data>10/10/2020</Data>
+            </DataInformation>
 
-          <DataInformation>
-            <Label>DESTINTÁRIO</Label>
-            <Data>Lorem ipsum dolor sit amet.</Data>
-          </DataInformation>
+            <DataInformation>
+              <Label>DATA DE ENTREGA</Label>
+              <Data>10/10/2020</Data>
+            </DataInformation>
+          </DateContent>
         </SecondaryCard>
 
         <MenuCard style={styles}>
