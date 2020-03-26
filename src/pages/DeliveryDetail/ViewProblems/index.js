@@ -1,43 +1,93 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ScrollView } from 'react-native';
+
+import Header from '~/components/Header';
 
 import { styles } from '~/utils/shadow';
 
 import {
-  Header,
-  Title,
-  HeaderTitle,
+  Container,
   Card,
+  CardSeconday,
   Information,
-  ContentDescription,
   Description,
-  Data,
+  Date,
 } from './styles';
 
 export default function ViewProblems({ navigation }) {
   return (
-    <>
-      <Header>
-        <TouchableOpacity onPress={() => navigation.navigate('DeliveryDetail')}>
-          <Ionicons name="ios-arrow-back" size={30} color="#FFF" />
-        </TouchableOpacity>
-        <HeaderTitle>
-          <Title>Informar Problema</Title>
-        </HeaderTitle>
+    <Container>
+      <ScrollView>
+        <Header
+          title="Visualizar Problema"
+          handleBack={() => navigation.navigate('DeliveryDetail')}
+        />
 
-        <Card style={styles.shadow}>
+        <Card style={styles}>
           <Information>
-            <ContentDescription>
-              <Description>Teste</Description>
-            </ContentDescription>
-
-            <Data>14/01/2020</Data>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
           </Information>
         </Card>
-      </Header>
-    </>
+
+        <CardSeconday sub={1} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+
+        <CardSeconday sub={4} style={styles}>
+          <Information>
+            <Description>Destinatário Ausente</Description>
+            <Date>14/01/2020</Date>
+          </Information>
+        </CardSeconday>
+      </ScrollView>
+    </Container>
   );
 }
 
