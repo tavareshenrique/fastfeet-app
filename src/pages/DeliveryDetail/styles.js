@@ -1,112 +1,81 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 
-const marginTop = 80;
-
-export const Container = styled.View``;
-
-export const Header = styled.View`
-  background: #816fe7;
-  padding: 20px;
-
-  flex-direction: row;
-  justify-content: space-between;
-  height: 150px;
-`;
-export const HeaderTitle = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
-  align-items: center;
 `;
-
-export const Title = styled.Text`
-  color: #fff;
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-export const Card = styled.View`
-  background: #fff;
-  width: 350px;
-  height: auto;
-
+export const PrimaryCard = styled.View`
+  border: #ccc;
   border-radius: 5px;
-
-  margin-right: 25px;
-  margin-left: 25px;
-  margin-top: ${marginTop}px;
+  background: #fff;
+  width: 300px;
 
   position: absolute;
-  padding: 10px;
 
-  ${({ isBottom }) =>
-    isBottom &&
-    css`
-      margin-top: ${marginTop * 3.9}px;
-    `}
+  margin-left: 30px;
+  margin-top: 70px;
 `;
 
-export const HeaderCard = styled.View`
+export const SecondaryCard = styled.View`
+  border: #ccc;
+  border-radius: 5px;
+  background: #fff;
+
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-top: 150px;
+`;
+
+export const CardInformation = styled.View`
   flex-direction: row;
   align-items: center;
+  padding: 10px;
 `;
 
 export const CardTitle = styled.Text`
   color: #816fe7;
   font-size: 15px;
   font-weight: bold;
-
-  margin-left: 5px;
-`;
-export const CardContent = styled.View`
-  margin-top: 10px;
+  margin-left: 10px;
 `;
 
-export const DataContent = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
+export const DataInformation = styled.View`
+  padding: 5px;
 `;
 
 export const Label = styled.Text`
-  color: #999;
-  font-weight: bold;
-  font-size: 15px;
+  color: #000;
+  font-size: 14px;
 `;
 
-export const TextValue = styled.Text`
-  font-size: 15px;
+export const Data = styled.Text`
+  font-size: 13px;
 `;
 
-export const Menu = styled.View`
-  background: #fafafa;
+export const MenuCard = styled.View`
   flex-direction: row;
-  justify-content: space-between;
 
-  width: 350px;
-  height: auto;
+  padding: 2px;
 
+  border: #ccc;
   border-radius: 5px;
+  background: #fafafa;
 
-  margin-right: 25px;
-  margin-left: 25px;
-  margin-top: 390px;
-
-  padding: 10px;
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-top: 8px;
 `;
 
-export const MenuContent = styled.TouchableOpacity`
-  flex-direction: column;
+export const MenuButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   width: 100px;
+`;
+
+export const MenuText = styled.Text`
+  text-align: center;
 `;
 
 export const Line = styled.View`
   width: 1px;
-  background: #cbcbcb;
-`;
-
-export const LabelMenu = styled.Text`
-  color: #999;
-  text-align: center;
-  font-size: 14px;
+  background: #a8a8a8;
 `;

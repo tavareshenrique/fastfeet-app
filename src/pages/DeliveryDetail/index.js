@@ -1,118 +1,111 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import Header from '~/components/Header';
 
 import { styles } from '~/utils/shadow';
 
 import {
   Container,
-  Header,
-  Title,
-  Card,
-  HeaderCard,
-  HeaderTitle,
+  PrimaryCard,
+  SecondaryCard,
+  MenuCard,
+  CardInformation,
   CardTitle,
-  CardContent,
-  DataContent,
+  DataInformation,
   Label,
-  TextValue,
-  Menu,
-  MenuContent,
+  Data,
+  MenuButton,
+  MenuText,
   Line,
-  LabelMenu,
 } from './styles';
 
 export default function DeliveryDetail({ navigation }) {
   return (
     <Container>
-      <Header>
-        <TouchableOpacity onPress={() => navigation.navigate('Delivery')}>
-          <Ionicons name="ios-arrow-back" size={30} color="#FFF" />
-        </TouchableOpacity>
-        <HeaderTitle>
-          <Title>Detalhes da encomenda</Title>
-        </HeaderTitle>
+      <ScrollView>
+        <Header
+          title="Detalhes da Encomenda"
+          handleBack={() => navigation.navigate('Delivery')}
+        />
 
-        <Card style={styles.shadow}>
-          <HeaderCard>
-            <MaterialIcons name="local-shipping" size={30} color="#8f71ea" />
-            <CardTitle>Informações da entrega</CardTitle>
-          </HeaderCard>
+        <PrimaryCard style={styles}>
+          <CardInformation>
+            <MaterialIcons name="local-shipping" size={30} color="#9071ea" />
+            <CardTitle>Informações da Entrega</CardTitle>
+          </CardInformation>
 
-          <CardContent>
-            <Label>DESTINATÁRIO</Label>
-            <TextValue>Ludwig van Beethoven</TextValue>
-          </CardContent>
+          <DataInformation>
+            <Label>DESTINTÁRIO</Label>
+            <Data>Lorem ipsum dolor sit amet.</Data>
+          </DataInformation>
 
-          <CardContent>
-            <Label>ENDEREÇO DE ENTREGA</Label>
-            <TextValue>
-              Rua João Felicidade, Três Rios - RJ, 25815-560
-            </TextValue>
-          </CardContent>
+          <DataInformation>
+            <Label>DESTINTÁRIO</Label>
+            <Data>Lorem ipsum dolor sit amet.</Data>
+          </DataInformation>
 
-          <CardContent>
-            <Label>PRODUTO</Label>
-            <TextValue>YAMAHA FAZER 150 2018</TextValue>
-          </CardContent>
-        </Card>
+          <DataInformation>
+            <Label>DESTINTÁRIO</Label>
+            <Data>Lorem ipsum dolor sit amet.</Data>
+          </DataInformation>
+        </PrimaryCard>
 
-        <Card isBottom style={styles.shadow}>
-          <HeaderCard>
-            <Ionicons name="md-calendar" size={30} color="#8f71ea" />
-            <CardTitle>Situação da entrega</CardTitle>
-          </HeaderCard>
+        <SecondaryCard style={styles}>
+          <CardInformation>
+            <Icon name="md-calendar" size={30} color="#9071ea" />
+            <CardTitle>Situação da Entrega</CardTitle>
+          </CardInformation>
 
-          <CardContent>
-            <Label>STATUS</Label>
-            <TextValue>Pendente</TextValue>
-          </CardContent>
+          <DataInformation>
+            <Label>DESTINTÁRIO</Label>
+            <Data>Lorem ipsum dolor sit amet.</Data>
+          </DataInformation>
 
-          <DataContent>
-            <CardContent>
-              <Label>DATA DA RETIRADA</Label>
-              <TextValue>14/01/2020</TextValue>
-            </CardContent>
+          <DataInformation>
+            <Label>DESTINTÁRIO</Label>
+            <Data>Lorem ipsum dolor sit amet.</Data>
+          </DataInformation>
 
-            <CardContent>
-              <Label>DATA DE ENTREGA</Label>
-              <TextValue>--/--/----</TextValue>
-            </CardContent>
-          </DataContent>
-        </Card>
-      </Header>
+          <DataInformation>
+            <Label>DESTINTÁRIO</Label>
+            <Data>Lorem ipsum dolor sit amet.</Data>
+          </DataInformation>
+        </SecondaryCard>
 
-      <Menu style={styles.shadow}>
-        <MenuContent onPress={() => navigation.navigate('ProblemReport')}>
-          <Ionicons name="md-close-circle-outline" size={45} color="red" />
-          <LabelMenu>Informar Problema</LabelMenu>
-        </MenuContent>
+        <MenuCard style={styles}>
+          <MenuButton onPress={() => navigation.navigate('ProblemReport')}>
+            <Icon name="md-close-circle-outline" size={30} color="red" />
+            <MenuText>Informar Problema</MenuText>
+          </MenuButton>
 
-        <Line />
+          <Line />
 
-        <MenuContent onPress={() => navigation.navigate('ViewProblems')}>
-          <Ionicons
-            name="md-information-circle-outline"
-            size={45}
-            color="#e7ba40"
-          />
-          <LabelMenu>Visualizar Problemas</LabelMenu>
-        </MenuContent>
+          <MenuButton onPress={() => navigation.navigate('ViewProblems')}>
+            <Icon
+              name="md-information-circle-outline"
+              size={30}
+              color="#e7ba40"
+            />
+            <MenuText>Visualizar Problema</MenuText>
+          </MenuButton>
 
-        <Line />
+          <Line />
 
-        <MenuContent>
-          <Ionicons
-            name="md-checkmark-circle-outline"
-            size={45}
-            color="#816fe7"
-          />
-          <LabelMenu>Confirmar Entrega</LabelMenu>
-        </MenuContent>
-      </Menu>
+          <MenuButton onPress={() => navigation.navigate('ConfirmDelivery')}>
+            <Icon
+              name="md-checkmark-circle-outline"
+              size={30}
+              color="#9071ea"
+            />
+            <MenuText>Confirmar Entrega</MenuText>
+          </MenuButton>
+        </MenuCard>
+      </ScrollView>
     </Container>
   );
 }
