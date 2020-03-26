@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+
+import PropTypes from 'prop-types';
 import { Alert, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
-import { CommonActions } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 
+import { CommonActions } from '@react-navigation/native';
+
+import Icons from 'react-native-vector-icons/MaterialIcons';
 import api from '~/services/api';
 
+import Header from '~/components/Header';
 import Camera from '~/components/Camera';
 import Button from '~/components/Button';
 
@@ -16,6 +20,7 @@ import {
   SelectImageButton,
   SelectImageText,
   Loading,
+  ClickContainer,
 } from './styles';
 
 export default function ConfirmDelivery({ navigation, route }) {
@@ -78,7 +83,12 @@ export default function ConfirmDelivery({ navigation, route }) {
   }
   return (
     <>
-      <>
+      <Header
+        title="Confirmar Entrega"
+        handleBack={() => navigation.navigate('DeliveryDetail')}
+      />
+
+      <Card>
         {!openCamera ? (
           <Container>
             <SelectImageButton
@@ -88,7 +98,10 @@ export default function ConfirmDelivery({ navigation, route }) {
               {image ? (
                 <Image source={{ uri: image }} />
               ) : (
-                <SelectImageText>Envie uma imagem</SelectImageText>
+                <ClickContainer>
+                  <SelectImageText>Clique para ativar a câmera</SelectImageText>
+                  <Icons name="touch-app" color="#816fe7" size={30} />
+                </ClickContainer>
               )}
             </SelectImageButton>
             <Button onPress={handleDone}>Enviar</Button>
@@ -99,7 +112,7 @@ export default function ConfirmDelivery({ navigation, route }) {
             closeCamera={() => setOpenCamera(false)}
           />
         )}
-      </>
+      </Card>
       {loading && (
         <Loading>
           <ActivityIndicator size="large" color="#ccc" />
