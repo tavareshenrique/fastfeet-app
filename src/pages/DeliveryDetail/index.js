@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 
+import { CommonActions } from '@react-navigation/native';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { formatDate } from '~/utils/dateFormat';
 
 import Header from '~/components/Header';
 
 import { styles } from '~/utils/shadow';
 
-import {
-  Container,
+import {Container,
   PrimaryCard,
   SecondaryCard,
   MenuCard,
@@ -22,10 +24,43 @@ import {
   DateContent,
   MenuButton,
   MenuText,
-  Line,
-} from './styles';
+  Line,} from './styles';
 
-export default function DeliveryDetail({ navigation }) {
+export default function DeliveryDetail({ navigation, route }) {
+  const { id, product, start_date, end_date, recipient } = route.params.data;
+  const { name, street, number, city, state, zipcode } = recipient;
+
+  const [heightCard, setHeightCard] = useState(0);
+
+  function orderStatus(order) {
+    if (order.canceled_at) {
+      return 'CANCELADO';
+    }
+
+    if (order.end_date) {
+      return 'ENTREGUE';
+    }
+
+    if (order.start_date) {
+      return 'RETIRADO';
+    }
+
+    return 'PENDENTE';
+  }
+  const status = useMemo(() => orderStatus(route.params.data), [
+    route.params.data,
+  ]);
+
+  const pickupDate = useMemo(
+    () => (start_date ? formatDate(start_date) : '--/--/----'),
+    [start_date],
+  );
+
+  const deliveryDate = useMemo(
+    () => (end_date ? formatDate(end_date) : '--/--/----'),
+    [end_date],
+  );
+
   return (
     <Container>
       <ScrollView>
@@ -34,7 +69,10 @@ export default function DeliveryDetail({ navigation }) {
           handleBack={() => navigation.navigate('Delivery')}
         />
 
-        <PrimaryCard style={styles}>
+        <PrimaryCard
+          style={styles}
+          onLayout={(event) => setHeightCard(event.nativeEvent.layout.height)}
+        >
           <CardInformation>
             <MaterialIcons name="local-shipping" size={30} color="#9071ea" />
             <CardTitle>Informações da Entrega</CardTitle>
@@ -42,21 +80,23 @@ export default function DeliveryDetail({ navigation }) {
 
           <DataInformation>
             <Label>DESTINATÁRIO</Label>
-            <Data>Lorem ipsum dolor sit amet.</Data>
+            <Data>{name}</Data>
           </DataInformation>
 
           <DataInformation>
             <Label>ENDEREÇO DE ENTREGA</Label>
-            <Data>Lorem ipsum dolor sit amet.</Data>
+            <Data>
+              {`${street}, ${number}, ${city} - ${state}, ${zipcode}`}
+            </Data>
           </DataInformation>
 
           <DataInformation>
             <Label>PRODUTO</Label>
-            <Data>Lorem ipsum dolor sit amet.</Data>
+            <Data>{product}</Data>
           </DataInformation>
         </PrimaryCard>
 
-        <SecondaryCard style={styles}>
+        <SecondaryCard style={styles} heightCard={heightCard}>
           <CardInformation>
             <Icon name="md-calendar" size={30} color="#9071ea" />
             <CardTitle>Situação da Entrega</CardTitle>
@@ -64,18 +104,18 @@ export default function DeliveryDetail({ navigation }) {
 
           <DataInformation>
             <Label>STATUS</Label>
-            <Data>Lorem ipsum dolor sit amet.</Data>
+            <Data>{status}</Data>
           </DataInformation>
 
           <DateContent>
             <DataInformation>
               <Label>DATA DE RETIRADA</Label>
-              <Data>10/10/2020</Data>
+              <Data>{pickupDate}</Data>
             </DataInformation>
 
             <DataInformation>
               <Label>DATA DE ENTREGA</Label>
-              <Data>10/10/2020</Data>
+              <Data>{deliveryDate}</Data>
             </DataInformation>
           </DateContent>
         </SecondaryCard>
@@ -88,7 +128,18 @@ export default function DeliveryDetail({ navigation }) {
 
           <Line />
 
-          <MenuButton onPress={() => navigation.navigate('ViewProblems')}>
+          <MenuButton
+            onPress={() => {
+              navigation.dispatch(
+                CommonActions.navigate({
+                  name: 'ViewProblems',
+                  params: {
+                    id,
+                  },
+                }),
+              );
+            }}
+          >
             <Icon
               name="md-information-circle-outline"
               size={30}
@@ -115,6 +166,25 @@ export default function DeliveryDetail({ navigation }) {
 
 DeliveryDetail.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    navigate: PropTypes.func,
+    dispatch: PropTypes.func,
+  }).isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      data: PropTypes.shape({
+        id: PropTypes.number,
+        product: PropTypes.string,
+        start_date: PropTypes.string,
+        end_date: PropTypes.string,
+        recipient: PropTypes.shape({
+          name: PropTypes.string,
+          street: PropTypes.string,
+          number: PropTypes.string,
+          city: PropTypes.string,
+          state: PropTypes.string,
+          zipcode: PropTypes.string,
+        }),
+      }),
+    }),
   }).isRequired,
 };
