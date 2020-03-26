@@ -9,25 +9,15 @@ export const Card = styled.View`
   border-radius: 5px;
   background: #fff;
   width: 300px;
-
-  position: absolute;
-
-  margin-left: 30px;
-  margin-top: 90px;
-`;
-
-export const CardSeconday = styled.View`
-  border: #ccc;
-  border-radius: 5px;
-  background: #fff;
-  width: 300px;
+  height: 65px;
 
   margin-left: 30px;
-  margin-top: ${(props) => 40 / props.sub}px;
+  margin-top: 10px;
 `;
 
 export const Information = styled.View`
   flex-direction: row;
+  flex: 1;
 `;
 
 export const Description = styled.Text`
