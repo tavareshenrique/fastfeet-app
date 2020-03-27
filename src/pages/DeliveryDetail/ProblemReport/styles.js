@@ -10,7 +10,6 @@ export const Card = styled.View`
   width: 300px;
 
   position: absolute;
-
-  margin-left: 30px;
-  margin-top: 70px;
+  top: 70px;
+  align-self: center;
 `;
