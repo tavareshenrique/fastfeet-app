@@ -10,7 +10,8 @@ import Timeline from '~/components/Timeline';
 
 import { styles } from '~/utils/shadow';
 
-import {ContentDelivery,
+import {
+  ContentDelivery,
   HeaderDelivery,
   TitleContent,
   TitleProduct,
@@ -20,7 +21,8 @@ import {ContentDelivery,
   ViewDetail,
   Label,
   DataContent,
-  CityContent,} from './styles';
+  CityContent,
+} from './styles';
 
 export default function DeliveryItem({ data, navigation }) {
   function statusDelivery(dataStatus) {
