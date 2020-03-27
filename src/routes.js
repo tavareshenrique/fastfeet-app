@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import { StatusBar } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -6,10 +7,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { changeBarStyle } from '~/utils/changeBarStyle';
+
 import SignIn from '~/pages/SignIn';
-
 import Profile from '~/pages/Profile';
-
 import Delivery from '~/pages/Delivery';
 import DeliveryDetail from '~/pages/DeliveryDetail';
 import ProblemReport from '~/pages/DeliveryDetail/ProblemReport';
@@ -19,10 +20,15 @@ import ConfirmDelivery from '~/pages/DeliveryDetail/ConfirmDelivery';
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
-function DeliveryScreen() {
+function DeliveryScreen({ route }) {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
+      <StatusBar
+        barStyle={
+          changeBarStyle(route) === 0 ? 'dark-content' : 'light-content'
+        }
+        backgroundColor={changeBarStyle(route) === 0 ? '#FFF' : '#7159c1'}
+      />
       <Stack.Navigator initialRouteName="Delivery" headerMode="none">
         <Stack.Screen name="Delivery" component={Delivery} />
         <Stack.Screen name="DeliveryDetail" component={DeliveryDetail} />
@@ -33,6 +39,10 @@ function DeliveryScreen() {
     </>
   );
 }
+
+const TabBarIcon = ({ color, name }) => (
+  <Icon name={name} size={30} color={color} />
+);
 
 export default function createRouter(isSigned = false) {
   return !isSigned ? (
@@ -63,9 +73,7 @@ export default function createRouter(isSigned = false) {
           component={DeliveryScreen}
           options={{
             tabBarLabel: 'Entregas',
-            tabBarIcon: ({ color }) => (
-              <Icon name="menu" size={30} color={color} />
-            ),
+            tabBarIcon: (props) => <TabBarIcon {...props} name="menu" />,
           }}
         />
         <Tabs.Screen
@@ -73,12 +81,23 @@ export default function createRouter(isSigned = false) {
           component={Profile}
           options={{
             tabBarLabel: 'Profile',
-            tabBarIcon: ({ color }) => (
-              <Icon name="person" size={30} color={color} />
-            ),
+            tabBarIcon: (props) => <TabBarIcon {...props} name="person" />,
           }}
         />
       </Tabs.Navigator>
     </>
   );
 }
+
+DeliveryScreen.propTypes = {
+  route: PropTypes.shape({
+    state: PropTypes.shape({
+      index: PropTypes.number,
+    }),
+  }).isRequired,
+};
+
+TabBarIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
