@@ -12,7 +12,8 @@ import Header from '~/components/Header';
 
 import { styles } from '~/utils/shadow';
 
-import {Container,
+import {
+  Container,
   PrimaryCard,
   SecondaryCard,
   MenuCard,
@@ -24,7 +25,8 @@ import {Container,
   DateContent,
   MenuButton,
   MenuText,
-  Line,} from './styles';
+  Line,
+} from './styles';
 
 export default function DeliveryDetail({ navigation, route }) {
   const { id, product, start_date, end_date, recipient } = route.params.data;
@@ -74,7 +76,7 @@ export default function DeliveryDetail({ navigation, route }) {
           onLayout={(event) => setHeightCard(event.nativeEvent.layout.height)}
         >
           <CardInformation>
-            <MaterialIcons name="local-shipping" size={30} color="#9071ea" />
+            <MaterialIcons name="local-shipping" size={30} color="#7159c1" />
             <CardTitle>Informações da Entrega</CardTitle>
           </CardInformation>
 
@@ -98,7 +100,7 @@ export default function DeliveryDetail({ navigation, route }) {
 
         <SecondaryCard style={styles} heightCard={heightCard}>
           <CardInformation>
-            <Icon name="md-calendar" size={30} color="#9071ea" />
+            <Icon name="md-calendar" size={30} color="#7159c1" />
             <CardTitle>Situação da Entrega</CardTitle>
           </CardInformation>
 
@@ -154,7 +156,7 @@ export default function DeliveryDetail({ navigation, route }) {
             <Icon
               name="md-checkmark-circle-outline"
               size={30}
-              color="#9071ea"
+              color="#7159c1"
             />
             <MenuText>Confirmar Entrega</MenuText>
           </MenuButton>
