@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native';
 
@@ -9,44 +9,45 @@ import { formatDate } from '~/utils/dateFormat';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 
-import {Container,
+import {
+  Container,
   ContentAvatar,
   DataProfile,
   ContentProfile,
   LabelInformation,
   LabelData,
-  AvatarImage,} from './styles';
+  AvatarImage,
+} from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const dataUser = useSelector((state) => state.auth.data);
 
-  const [avatarUrl] = useSelector((state) =>
-    state.auth.data.map((user) => (user.avatar ? user.avatar.url : null)),
-  );
+  const [avatarURL, setAvatarURL] = useState(null);
+  const [nameUser, setNameUser] = useState('');
+  const [emailUser, setEmailUser] = useState('');
+  const [createdAt, setCreatedAt] = useState('');
 
-  const [nameUser] = useSelector((state) =>
-    state.auth.data.map((user) => user.name),
-  );
+  useEffect(() => {
+    dataUser.forEach((user) => {
+      if (user.avatar) {
+        setAvatarURL(user.avatar.url);
+      }
 
-  const [emailUser] = useSelector((state) =>
-    state.auth.data.map((user) => user.email),
-  );
-
-  const [createdAt] = useSelector((state) =>
-    state.auth.data.map((user) => user.created_at),
-  );
-
-  const registerAt = useMemo(() => formatDate(createdAt), [createdAt]);
+      setNameUser(user.name);
+      setEmailUser(user.email);
+      setCreatedAt(formatDate(user.created_at));
+    });
+  }, [dataUser]);
 
   return (
     <Container>
       <ScrollView>
-        {console.tron.log('avatarUrl', avatarUrl)}
         <ContentAvatar>
-          {avatarUrl ? (
+          {avatarURL ? (
             <AvatarImage
               source={{
-                uri: avatarUrl,
+                uri: avatarURL,
               }}
             />
           ) : (
@@ -67,7 +68,7 @@ export default function Profile() {
 
           <ContentProfile>
             <LabelInformation>Data de Cadastro</LabelInformation>
-            <LabelData>{registerAt}</LabelData>
+            <LabelData>{createdAt}</LabelData>
           </ContentProfile>
         </DataProfile>
 
