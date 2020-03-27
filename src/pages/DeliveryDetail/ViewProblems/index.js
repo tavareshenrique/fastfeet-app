@@ -13,7 +13,15 @@ import { styles } from '~/utils/shadow';
 
 import empty from '~/assets/lottie/empty.json';
 
-import { Container, Card, Information, Description, Date } from './styles';
+import {
+  Container,
+  Card,
+  SecondaryCard,
+  CardContent,
+  Information,
+  Description,
+  Date,
+} from './styles';
 
 export default function ViewProblems({ navigation, route }) {
   const { id } = route.params;
@@ -38,36 +46,60 @@ export default function ViewProblems({ navigation, route }) {
 
   return (
     <Container>
-      {data.length !== 0 ? (
-        <ScrollView>
-          <Header
-            title="Visualizar Problema"
-            handleBack={() => navigation.navigate('DeliveryDetail')}
-          />
+      <ScrollView>
+        {data.length !== 0 ? (
+          <>
+            <Header
+              title="Visualizar Problema"
+              handleBack={() => navigation.navigate('DeliveryDetail')}
+            />
 
-          {data.map((delivery) => (
-            <Card key={delivery.id} style={styles}>
-              <Information>
-                <Description>
-                  {formatDescription(delivery.description)}
-                </Description>
-                <Date>{date(delivery.created_at)}</Date>
-              </Information>
-            </Card>
-          ))}
-        </ScrollView>
-      ) : (
-        <>
-          <Header
-            title="Visualizar Problema"
-            handleBack={() => navigation.navigate('DeliveryDetail')}
-          />
+            {data.map((delivery, index) => {
+              if (index === 0) {
+                return (
+                  <Card
+                    space={index}
+                    sizeIsOne={data.length === 1}
+                    key={delivery.id}
+                    style={styles}
+                  >
+                    <Information>
+                      <Description>
+                        {formatDescription(delivery.description)}
+                      </Description>
+                      <Date>{date(delivery.created_at)}</Date>
+                    </Information>
+                  </Card>
+                );
+              }
 
-          <LottieComponent>
-            <Lottie resizeMode="contain" source={empty} autoPlay loop />
-          </LottieComponent>
-        </>
-      )}
+              return (
+                <CardContent key={delivery.id}>
+                  <SecondaryCard space={index} style={styles}>
+                    <Information>
+                      <Description>
+                        {formatDescription(delivery.description)}
+                      </Description>
+                      <Date>{date(delivery.created_at)}</Date>
+                    </Information>
+                  </SecondaryCard>
+                </CardContent>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <Header
+              title="Visualizar Problema"
+              handleBack={() => navigation.navigate('DeliveryDetail')}
+            />
+
+            <LottieComponent>
+              <Lottie resizeMode="contain" source={empty} autoPlay loop />
+            </LottieComponent>
+          </>
+        )}
+      </ScrollView>
     </Container>
   );
 }
