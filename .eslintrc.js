@@ -16,6 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', 'jsx-a11y', 'import', 'react-hooks', 'prettier'],
+
   rules: {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
@@ -35,6 +36,13 @@ module.exports = {
       1,
       {
         custom: 'ignore',
+      },
+    ],
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: 'always',
+        ObjectPattern: { multiline: true },
       },
     ],
   },
