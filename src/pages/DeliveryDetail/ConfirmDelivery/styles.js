@@ -1,4 +1,7 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const deviceHeight = Dimensions.get('window').height;
 
 export const Container = styled.View`
   flex: 1;
@@ -12,12 +15,11 @@ export const Card = styled.View`
   border-radius: 5px;
   background: #fff;
   width: 300px;
-  height: 400px;
+  height: ${deviceHeight - deviceHeight * 0.3}px;
 
   position: absolute;
-
-  margin-left: 30px;
-  margin-top: 90px;
+  top: 70px;
+  align-self: center;
 `;
 
 export const Image = styled.Image`
