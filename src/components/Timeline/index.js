@@ -1,14 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Container,
-  Points,
-  Point,
-  Labels,
-  Label,
-  Line,
-} from './styles';
+import { Container, Points, Point, Labels, Label, Line } from './styles';
 
 export default function TimeLine({ status }) {
   return (
@@ -16,9 +9,7 @@ export default function TimeLine({ status }) {
       <Points>
         <Point
           activer={
-            status === 'pedding' ||
-            status === 'progress' ||
-            status === 'done'
+            status === 'pedding' || status === 'progress' || status === 'done'
           }
         />
         <Line />

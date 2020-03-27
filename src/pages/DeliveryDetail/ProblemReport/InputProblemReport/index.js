@@ -24,11 +24,15 @@ function InputProblemReport({ name, ...rest }) {
         return ref._lastNativeText || '';
       },
       setValue(ref, value) {
-        ref.setNativeProps({ text: value });
+        ref.setNativeProps({
+          text: value,
+        });
         ref._lastNativeText = value;
       },
       clearValue(ref) {
-        ref.setNativeProps({ text: '' });
+        ref.setNativeProps({
+          text: '',
+        });
         ref._lastNativeText = '';
       },
     });

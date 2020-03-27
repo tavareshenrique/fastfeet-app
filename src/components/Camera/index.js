@@ -29,7 +29,10 @@ export default function Camera({ selectImage, closeCamera }) {
   const [flashMode, setFlashMode] = useState(false);
 
   async function takePicture(camera) {
-    const options = { quality: 0.5, base64: true };
+    const options = {
+      quality: 0.5,
+      base64: true,
+    };
     const data = await camera.takePictureAsync(options);
     selectImage(data.uri);
     closeCamera();

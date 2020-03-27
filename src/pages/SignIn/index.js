@@ -7,8 +7,9 @@ import { signInRequest } from '~/store/modules/auth/actions';
 import logo from '~/assets/fastfeet-logo.png';
 
 import Background from '~/components/Background';
+import Input from '~/components/Input';
 
-import { Container, Form, FormInput, SubmitButton } from './styles';
+import { Container, Form, SubmitButton } from './styles';
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -24,10 +25,15 @@ export default function SignIn() {
   return (
     <Background>
       <Container>
-        <Image source={logo} style={{ tintColor: '#fff' }} />
+        <Image
+          source={logo}
+          style={{
+            tintColor: '#fff',
+          }}
+        />
 
         <Form>
-          <FormInput
+          <Input
             keyboardType="number-pad"
             autoCorrect
             autoCapitalize="none"

@@ -56,7 +56,11 @@ export default function Delivery({ navigation }) {
     <Container>
       <Header>
         {avatar ? (
-          <AvatarImage source={{ uri: avatar }} />
+          <AvatarImage
+            source={{
+              uri: avatar,
+            }}
+          />
         ) : (
           <Avatar name={name} />
         )}

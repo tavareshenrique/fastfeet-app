@@ -14,7 +14,7 @@ export const Point = styled.View`
   width: 16px;
   border: 2px solid #7d40e7;
   border-radius: 8px;
-  background: ${props => (props.activer ? '#7D40E7' : '#fff')};
+  background: ${(props) => (props.activer ? '#7D40E7' : '#fff')};
 `;
 
 export const Line = styled.View`

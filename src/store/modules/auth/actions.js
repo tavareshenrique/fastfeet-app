@@ -1,14 +1,18 @@
 export function signInRequest(id) {
   return {
     type: '@auth/SIGN_IN_REQUEST',
-    payload: { id },
+    payload: {
+      id,
+    },
   };
 }
 
 export function signInSuccess(data) {
   return {
     type: '@auth/SIGN_IN_SUCCESS',
-    payload: { data },
+    payload: {
+      data,
+    },
   };
 }
 

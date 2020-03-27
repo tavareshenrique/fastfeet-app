@@ -42,9 +42,14 @@ export default function ConfirmDelivery({ navigation, route }) {
         {
           text: 'Não',
         },
-        { text: 'Sim', onPress: () => setImage() },
+        {
+          text: 'Sim',
+          onPress: () => setImage(),
+        },
       ],
-      { cancelable: false },
+      {
+        cancelable: false,
+      },
     );
   }
 
@@ -96,7 +101,11 @@ export default function ConfirmDelivery({ navigation, route }) {
               onLongPress={image && handleLongPress}
             >
               {image ? (
-                <Image source={{ uri: image }} />
+                <Image
+                  source={{
+                    uri: image,
+                  }}
+                />
               ) : (
                 <ClickContainer>
                   <SelectImageText>Clique para ativar a câmera</SelectImageText>

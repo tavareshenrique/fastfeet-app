@@ -39,11 +39,25 @@ module.exports = {
       },
     ],
     'object-curly-newline': [
-      'error',
+      'warn',
       {
-        ObjectExpression: 'always',
-        ObjectPattern: { multiline: true },
+        multiline: true,
+        consistent: true,
       },
+    ],
+    // 'object-curly-newline': [
+    //   'error',
+    //   {
+    //     ObjectExpression: 'always',
+    //     ObjectPattern: { multiline: true },
+    //   },
+    // ],
+    'max-len': ['error', 80],
+    'implicit-arrow-linebreak': 'off',
+    'operator-linebreak': [
+      'error',
+      'after',
+      { overrides: { '+=': 'before', '?': 'ignore', ':': 'ignore' } },
     ],
   },
   settings: {
