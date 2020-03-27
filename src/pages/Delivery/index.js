@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { TouchableOpacity, Animated, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -26,8 +26,6 @@ import {
 export default function Delivery({ navigation }) {
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.auth.data);
-
-  const opacity = new Animated.Value(0);
 
   const [typeFilter, setTypeFilter] = useState('pending');
 
@@ -54,25 +52,11 @@ export default function Delivery({ navigation }) {
     });
   }, [dataUser]);
 
-  function onLoad() {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 300,
-    }).start();
-  }
-
   return (
     <Container>
       <Header>
         {avatar ? (
-          <View>
-            <AvatarImage source={{ uri: avatar }} />
-
-            <Animated.Image
-              style={{ position: 'absolute', opacity }}
-              onLoad={onLoad}
-            />
-          </View>
+          <AvatarImage source={{ uri: avatar }} />
         ) : (
           <Avatar name={name} />
         )}
