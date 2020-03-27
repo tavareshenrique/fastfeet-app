@@ -7,22 +7,21 @@ export const PrimaryCard = styled.View`
   border: #ccc;
   border-radius: 5px;
   background: #fff;
-  width: 300px;
+  width: 325px;
 
   position: absolute;
-
-  margin-left: 30px;
-  margin-top: 70px;
+  top: 70px;
+  align-self: center;
 `;
 
 export const SecondaryCard = styled.View`
   border: #ccc;
   border-radius: 5px;
   background: #fff;
+  width: 325px;
 
-  margin-right: 30px;
-  margin-left: 30px;
-  margin-top: ${(props) => (props.heightCard === 238 ? '193px' : '178px')};
+  align-self: center;
+  margin-top: 195px;
 `;
 
 export const CardInformation = styled.View`
@@ -59,32 +58,33 @@ export const DateContent = styled.View`
 
 export const MenuCard = styled.View`
   flex-direction: row;
-
   padding: 2px;
+  width: 325px;
+  align-self: center;
+  margin-top: 5px;
+  margin-bottom: 8px;
 
   border: #ccc;
   border-radius: 5px;
   background: #fafafa;
-
-  margin-right: 30px;
-  margin-left: 30px;
-  margin-top: 5px;
-  margin-bottom: 8px;
 `;
 
 export const MenuButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: 33%;
+  padding: 3px;
 `;
 
 export const MenuText = styled.Text`
   text-align: center;
-  font-weight: 700;
+  font-weight: 500;
   color: #7a7a7a;
 `;
 
 export const Line = styled.View`
   width: 1px;
+  height: 50px;
+  margin-top: 10px;
   background: #a8a8a8;
 `;
