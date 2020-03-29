@@ -17,6 +17,7 @@ import { Loading } from './styles';
 
 export default function DeliveryList({ typeFilter, navigation }) {
   const dataUser = useSelector((state) => state.auth.data);
+  const setTakeOrder = useSelector((state) => state.delivery.setTakeOrder);
 
   const [dataDelivery, setDataDelivery] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,8 @@ export default function DeliveryList({ typeFilter, navigation }) {
       const id = dataUser.map((user) => user.id);
 
       let params = '';
+      const delivered = setTakeOrder;
+
       if (typeFilter === 'pending') {
         params = {
           page: 1,
@@ -35,9 +38,10 @@ export default function DeliveryList({ typeFilter, navigation }) {
       } else {
         params = {
           page: 1,
-          delivered: true,
+          delivered,
         };
       }
+
       setLoadingDelivery(true);
       const response = await api.get(`deliverymen/${id}/deliveries`, {
         params,
@@ -48,27 +52,11 @@ export default function DeliveryList({ typeFilter, navigation }) {
     }
 
     fetchDelivery();
-  }, [typeFilter, dataUser]);
-
-  useEffect(() => {
-    async function fetchDelivery() {
-      const id = dataUser.map((user) => user.id);
-
-      setLoadingDelivery(true);
-      const response = await api.get(`deliverymen/${id}/deliveries`, {
-        params: {
-          page: 1,
-        },
-      });
-
-      setDataDelivery(response.data);
-      setLoadingDelivery(false);
-    }
-
-    fetchDelivery();
-  }, [dataUser]);
+  }, [dataUser, typeFilter, setTakeOrder]);
 
   async function loadDelivery() {
+    if (loading) return;
+
     const id = dataUser.map((user) => user.id);
 
     let params = '';
@@ -122,7 +110,7 @@ export default function DeliveryList({ typeFilter, navigation }) {
                   if (distanceFromEnd < 0) return;
                   loadDelivery();
                 }}
-                onEndReachedThreshold={0.1}
+                onEndReachedThreshold={0.2}
                 ListFooterComponent={renderLoading}
               />
             </>

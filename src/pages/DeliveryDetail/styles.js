@@ -31,7 +31,7 @@ export const CardInformation = styled.View`
 `;
 
 export const CardTitle = styled.Text`
-  color: #816fe7;
+  color: #7159c1;
   font-size: 15px;
   font-weight: bold;
   margin-left: 10px;
@@ -72,7 +72,7 @@ export const MenuCard = styled.View`
 export const MenuButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  width: 33%;
+  width: ${(props) => (props.fullWidth ? '100%' : '33%')};
   padding: 3px;
 `;
 

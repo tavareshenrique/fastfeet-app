@@ -1,11 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CommonActions } from '@react-navigation/native';
-
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { takeOrderRequest } from '~/store/modules/delivery/actions';
+
 import { formatDate } from '~/utils/dateFormat';
 
 import Header from '~/components/Header';
@@ -29,10 +32,23 @@ import {
 } from './styles';
 
 export default function DeliveryDetail({ navigation, route }) {
+  const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.auth.data);
+  const idDeliveryman = userData.map((user) => user.id);
+
+  const isTakeOrder = useSelector((state) => state.delivery.setTakeOrder);
+
   const { id, product, start_date, end_date, recipient } = route.params.data;
   const { name, street, number, city, state, zipcode } = recipient;
 
   const [heightCard, setHeightCard] = useState(0);
+
+  useEffect(() => {
+    if (isTakeOrder) {
+      navigation.navigate('Delivery');
+    }
+  }, [isTakeOrder, navigation]);
 
   function orderStatus(order) {
     if (order.canceled_at) {
@@ -49,6 +65,7 @@ export default function DeliveryDetail({ navigation, route }) {
 
     return 'PENDENTE';
   }
+
   const status = useMemo(() => orderStatus(route.params.data), [
     route.params.data,
   ]);
@@ -62,6 +79,10 @@ export default function DeliveryDetail({ navigation, route }) {
     () => (end_date ? formatDate(end_date) : '--/--/----'),
     [end_date],
   );
+
+  function takeOrder() {
+    dispatch(takeOrderRequest(idDeliveryman, id));
+  }
 
   return (
     <Container>
@@ -123,43 +144,56 @@ export default function DeliveryDetail({ navigation, route }) {
         </SecondaryCard>
 
         <MenuCard style={styles}>
-          <MenuButton onPress={() => navigation.navigate('ProblemReport')}>
-            <Icon name="md-close-circle-outline" size={30} color="red" />
-            <MenuText>Informar Problema</MenuText>
-          </MenuButton>
+          {start_date ? (
+            <>
+              <MenuButton onPress={() => navigation.navigate('ProblemReport')}>
+                <Icon name="md-close-circle-outline" size={30} color="red" />
+                <MenuText>Informar Problema</MenuText>
+              </MenuButton>
 
-          <Line />
+              <Line />
 
-          <MenuButton
-            onPress={() => {
-              navigation.dispatch(
-                CommonActions.navigate({
-                  name: 'ViewProblems',
-                  params: {
-                    id,
-                  },
-                }),
-              );
-            }}
-          >
-            <Icon
-              name="md-information-circle-outline"
-              size={30}
-              color="#e7ba40"
-            />
-            <MenuText>Visualizar Problema</MenuText>
-          </MenuButton>
+              <MenuButton
+                onPress={() => {
+                  navigation.dispatch(
+                    CommonActions.navigate({
+                      name: 'ViewProblems',
+                      params: {
+                        id,
+                      },
+                    }),
+                  );
+                }}
+              >
+                <Icon
+                  name="md-information-circle-outline"
+                  size={30}
+                  color="#e7ba40"
+                />
+                <MenuText>Visualizar Problema</MenuText>
+              </MenuButton>
 
-          <Line />
+              <Line />
 
-          <MenuButton onPress={() => navigation.navigate('ConfirmDelivery')}>
-            <Icon
-              name="md-checkmark-circle-outline"
-              size={30}
-              color="#7159c1"
-            />
-            <MenuText>Confirmar Entrega</MenuText>
-          </MenuButton>
+              <MenuButton
+                onPress={() => navigation.navigate('ConfirmDelivery')}
+              >
+                <Icon
+                  name="md-checkmark-circle-outline"
+                  size={30}
+                  color="#7159c1"
+                />
+                <MenuText>Confirmar Entrega</MenuText>
+              </MenuButton>
+            </>
+          ) : (
+            <>
+              <MenuButton fullWidth onPress={takeOrder}>
+                <FontAwesome name="dolly" size={30} color="#7159c1" />
+                <MenuText>Retirar Encomenda</MenuText>
+              </MenuButton>
+            </>
+          )}
         </MenuCard>
       </ScrollView>
     </Container>

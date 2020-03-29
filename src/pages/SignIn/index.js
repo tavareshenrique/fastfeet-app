@@ -34,7 +34,7 @@ export default function SignIn() {
 
         <Form>
           <Input
-            keyboardType="number-pad"
+            keyboardType="visible-password"
             autoCorrect
             autoCapitalize="none"
             placeholder="Insira seu ID de cadastro"

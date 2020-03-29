@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen';
+import FlashMessage from 'react-native-flash-message';
 
 import './config/ReactotronConfig';
 
@@ -25,6 +26,7 @@ export default function Index() {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <App />
+          <FlashMessage duration={5000} position="top" />
         </PersistGate>
       </Provider>
     </NavigationContainer>
