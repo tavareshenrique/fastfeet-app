@@ -3,7 +3,12 @@ import { showMessage } from 'react-native-flash-message';
 
 import api from '~/services/api';
 
-import { takeOrderRequestSuccess, takeOrderRequestFailure } from './actions';
+import {
+  takeOrderRequestSuccess,
+  takeOrderRequestFailure,
+  setProblemSuccess,
+  setProblemFailure,
+} from './actions';
 
 export function* takeOrder({ payload }) {
   try {
@@ -35,4 +40,31 @@ export function* takeOrder({ payload }) {
   }
 }
 
-export default all([takeLatest('@delivery/TAKE_ORDER_REQUEST', takeOrder)]);
+export function* setProblem({ payload }) {
+  try {
+    const { id, description } = payload;
+
+    yield call(api.post, `delivery/${id}/problems`, {
+      description,
+    });
+
+    yield put(setProblemSuccess());
+    showMessage({
+      message: 'Obrigado!',
+      description: 'Problema informado!',
+      type: 'success',
+    });
+  } catch (err) {
+    showMessage({
+      message: 'Ops!',
+      description: 'Falha ao informar o problema',
+      type: 'danger',
+    });
+    yield put(setProblemFailure());
+  }
+}
+
+export default all([
+  takeLatest('@delivery/TAKE_ORDER_REQUEST', takeOrder),
+  takeLatest('@delivery/SET_PROBLEM_REQUEST', setProblem),
+]);

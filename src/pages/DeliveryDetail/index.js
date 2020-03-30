@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
@@ -33,6 +33,7 @@ import {
 
 export default function DeliveryDetail({ navigation, route }) {
   const dispatch = useDispatch();
+  const nav = useNavigation();
 
   const userData = useSelector((state) => state.auth.data);
   const idDeliveryman = userData.map((user) => user.id);
@@ -146,7 +147,13 @@ export default function DeliveryDetail({ navigation, route }) {
         <MenuCard style={styles}>
           {start_date ? (
             <>
-              <MenuButton onPress={() => navigation.navigate('ProblemReport')}>
+              <MenuButton
+                onPress={() =>
+                  nav.navigate('ProblemReport', {
+                    id,
+                  })
+                }
+              >
                 <Icon name="md-close-circle-outline" size={30} color="red" />
                 <MenuText>Informar Problema</MenuText>
               </MenuButton>

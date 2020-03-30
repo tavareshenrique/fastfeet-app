@@ -1,5 +1,5 @@
-import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { showMessage } from 'react-native-flash-message';
 
 import api from '~/services/api';
 
@@ -17,16 +17,21 @@ export function* signIn({ payload }) {
 
     if (response.data.length === 0) {
       yield put(signFailure());
-      Alert.alert('Falha na autenticação', 'ID de cadastro não encontrado');
+      showMessage({
+        message: 'Falha na autenticação!',
+        description: 'ID de cadastro não encontrado!',
+        type: 'danger',
+      });
       return;
     }
 
     yield put(signInSuccess(response.data));
   } catch (err) {
-    Alert.alert(
-      'Falha na autenticação',
-      'Houve um erro no login, verifique seus dados',
-    );
+    showMessage({
+      message: 'Falha na autenticação!',
+      description: 'Houve um erro no login, verifique seus dados',
+      type: 'danger',
+    });
     yield put(signFailure());
   }
 }

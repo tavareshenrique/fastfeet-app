@@ -9,6 +9,8 @@ export const Card = styled.View`
   background: #fff;
   width: 300px;
 
+  padding: 5px;
+
   position: absolute;
   top: 70px;
   align-self: center;

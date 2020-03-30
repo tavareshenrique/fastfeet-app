@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import Lottie from 'lottie-react-native';
-
 import api from '~/services/api';
 import { formatDate } from '~/utils/dateFormat';
 
@@ -34,6 +33,7 @@ export default function ViewProblems({ navigation, route }) {
     (desc) => (desc.length >= 14 ? `${desc.substr(0, 15)}...` : desc),
     [],
   );
+
   useEffect(() => {
     async function fetchDeliveryProblems() {
       const response = await api.get(`delivery/${id}/problems`);
