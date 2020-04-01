@@ -15,11 +15,7 @@ import empty from '~/assets/lottie/empty.json';
 
 import { Loading } from './styles';
 
-export default function DeliveryList({
-  typeFilter,
-  setTypeFilter,
-  navigation,
-}) {
+export default function DeliveryList({ typeFilter, setTypeFilter }) {
   const dataUser = useSelector((state) => state.auth.data);
   const setTakeOrder = useSelector((state) => state.delivery.setTakeOrder);
   const confirmDelivery = useSelector(
@@ -40,47 +36,30 @@ export default function DeliveryList({
   useEffect(() => {
     async function fetchDelivery() {
       const id = dataUser.map((user) => user.id);
-
-      const params = {
-        page: 1,
-      };
-
-      if (confirmDelivery) {
-        params.delivered = true;
-        setTypeFilter('delivered');
-      }
-
-      setLoadingDelivery(true);
-      const response = await api.get(`deliverymen/${id}/deliveries`, {
-        params,
-      });
-
-      setDataDelivery(response.data);
-      setLoadingDelivery(false);
-    }
-
-    fetchDelivery();
-  }, [confirmDelivery]);
-
-  useEffect(() => {
-    async function fetchDelivery() {
-      const id = dataUser.map((user) => user.id);
-
-      let params = '';
-      let delivered = false;
+      const params = {};
+      let selectTypeFilter = 'pending';
 
       if (setTakeOrder) {
-        delivered = false;
+        setTypeFilter('pending');
+        setPage(2);
+        selectTypeFilter = 'pending';
       }
-      if (typeFilter === 'pending') {
-        params = {
-          page: 1,
-        };
+
+      if (confirmDelivery) {
+        setTypeFilter('delivered');
+        setPage(2);
+        selectTypeFilter = 'delivered';
+      }
+
+      if (!setTakeOrder && !confirmDelivery) {
+        selectTypeFilter = typeFilter;
+      }
+
+      if (selectTypeFilter === 'pending') {
+        params.page = 1;
       } else {
-        params = {
-          page: 1,
-          delivered,
-        };
+        params.page = 1;
+        params.delivered = true;
       }
 
       setLoadingDelivery(true);
@@ -94,7 +73,7 @@ export default function DeliveryList({
     }
 
     fetchDelivery();
-  }, [dataUser, typeFilter, setTakeOrder]);
+  }, [dataUser, typeFilter, setTypeFilter, setTakeOrder, confirmDelivery]);
 
   async function loadDelivery() {
     const totalPageInt = parseInt(totalPage, 0);
@@ -146,9 +125,7 @@ export default function DeliveryList({
             <>
               <FlatList
                 data={dataDelivery}
-                renderItem={({ item }) => (
-                  <DeliveryItem data={item} navigation={navigation} />
-                )}
+                renderItem={({ item }) => <DeliveryItem data={item} />}
                 keyExtractor={(item) => item.id.toString()}
                 onEndReached={loadDelivery}
                 onEndReachedThreshold={0.1}
@@ -173,7 +150,4 @@ export default function DeliveryList({
 DeliveryList.propTypes = {
   typeFilter: PropTypes.string.isRequired,
   setTypeFilter: PropTypes.func.isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
