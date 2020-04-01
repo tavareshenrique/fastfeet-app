@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import PropTypes from 'prop-types';
 import { Alert, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
@@ -28,8 +27,9 @@ import {
   ClickContainer,
 } from './styles';
 
-export default function ConfirmDelivery({ navigation }) {
+export default function ConfirmDelivery() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const route = useRoute();
 
   const deliveryman = useSelector((state) => state.auth.data);
@@ -99,10 +99,7 @@ export default function ConfirmDelivery({ navigation }) {
   }
   return (
     <>
-      <Header
-        title="Confirmar Entrega"
-        handleBack={() => navigation.navigate('DeliveryDetail')}
-      />
+      <Header title="Confirmar Entrega" />
 
       <Card>
         {!openCamera ? (
@@ -141,14 +138,3 @@ export default function ConfirmDelivery({ navigation }) {
     </>
   );
 }
-
-ConfirmDelivery.propTypes = {
-  navigation: PropTypes.shape({
-    dispatch: PropTypes.func.isRequired,
-  }).isRequired,
-  route: PropTypes.shape({
-    params: PropTypes.shape({
-      delivery_id: PropTypes.number,
-    }),
-  }).isRequired,
-};

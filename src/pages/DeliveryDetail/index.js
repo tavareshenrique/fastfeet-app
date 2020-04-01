@@ -1,9 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
@@ -34,9 +33,10 @@ import {
   Line,
 } from './styles';
 
-export default function DeliveryDetail({ navigation, route }) {
+export default function DeliveryDetail() {
   const dispatch = useDispatch();
-  const nav = useNavigation();
+  const navigation = useNavigation();
+  const route = useRoute();
 
   const userData = useSelector((state) => state.auth.data);
   const idDeliveryman = userData.map((user) => user.id);
@@ -53,7 +53,7 @@ export default function DeliveryDetail({ navigation, route }) {
       dispatch(resetTakeOrder());
       navigation.navigate('Delivery');
     }
-  }, [isTakeOrder, navigation]);
+  }, [isTakeOrder, navigation, dispatch]);
 
   function orderStatus(order) {
     if (order.canceled_at) {
@@ -92,10 +92,7 @@ export default function DeliveryDetail({ navigation, route }) {
   return (
     <Container>
       <ScrollView>
-        <Header
-          title="Detalhes da Encomenda"
-          handleBack={() => navigation.navigate('Delivery')}
-        />
+        <Header title="Detalhes da Encomenda" />
 
         <PrimaryCard
           style={styles}
@@ -153,7 +150,7 @@ export default function DeliveryDetail({ navigation, route }) {
             <>
               <MenuButton
                 onPress={() =>
-                  nav.navigate('ProblemReport', {
+                  navigation.navigate('ProblemReport', {
                     id,
                   })
                 }
@@ -166,14 +163,12 @@ export default function DeliveryDetail({ navigation, route }) {
 
               <MenuButton
                 onPress={() => {
-                  navigation.dispatch(
-                    CommonActions.navigate({
-                      name: 'ViewProblems',
-                      params: {
-                        id,
-                      },
-                    }),
-                  );
+                  navigation.navigate({
+                    name: 'ViewProblems',
+                    params: {
+                      id,
+                    },
+                  });
                 }}
               >
                 <Icon
@@ -188,7 +183,7 @@ export default function DeliveryDetail({ navigation, route }) {
 
               <MenuButton
                 onPress={() =>
-                  nav.navigate('ConfirmDelivery', {
+                  navigation.navigate('ConfirmDelivery', {
                     id,
                   })
                 }
@@ -214,28 +209,3 @@ export default function DeliveryDetail({ navigation, route }) {
     </Container>
   );
 }
-
-DeliveryDetail.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-    dispatch: PropTypes.func,
-  }).isRequired,
-  route: PropTypes.shape({
-    params: PropTypes.shape({
-      data: PropTypes.shape({
-        id: PropTypes.number,
-        product: PropTypes.string,
-        start_date: PropTypes.string,
-        end_date: PropTypes.string,
-        recipient: PropTypes.shape({
-          name: PropTypes.string,
-          street: PropTypes.string,
-          number: PropTypes.string,
-          city: PropTypes.string,
-          state: PropTypes.string,
-          zipcode: PropTypes.string,
-        }),
-      }),
-    }),
-  }).isRequired,
-};

@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Container, Content, Title } from './styles';
 
-export default function Header({ title, handleBack }) {
+export default function Header({ title }) {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <TouchableOpacity
-        onPress={handleBack}
+        onPress={() => navigation.goBack()}
         style={{
           height: 50,
           width: 30,
@@ -34,5 +37,4 @@ export default function Header({ title, handleBack }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  handleBack: PropTypes.func.isRequired,
 };

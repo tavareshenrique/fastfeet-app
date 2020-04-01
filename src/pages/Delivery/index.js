@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
 
@@ -23,8 +22,9 @@ import {
   Filter,
 } from './styles';
 
-export default function Delivery({ navigation }) {
+export default function Delivery() {
   const dispatch = useDispatch();
+
   const dataUser = useSelector((state) => state.auth.data);
 
   const [typeFilter, setTypeFilter] = useState('pending');
@@ -88,17 +88,7 @@ export default function Delivery({ navigation }) {
         </HeaderContent>
       </Content>
 
-      <DeliveryList
-        typeFilter={typeFilter}
-        setTypeFilter={setTypeFilter}
-        navigation={navigation}
-      />
+      <DeliveryList typeFilter={typeFilter} setTypeFilter={setTypeFilter} />
     </Container>
   );
 }
-
-Delivery.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import { setProblemRequest } from '~/store/modules/delivery/actions';
 
@@ -14,8 +13,9 @@ import { styles } from '~/utils/shadow';
 
 import { Container, Card } from './styles';
 
-export default function ProblemReport({ navigation }) {
+export default function ProblemReport() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const route = useRoute();
 
   const { id } = route.params;
@@ -36,10 +36,7 @@ export default function ProblemReport({ navigation }) {
 
   return (
     <Container>
-      <Header
-        title="Informar Problema"
-        handleBack={() => navigation.navigate('DeliveryDetail')}
-      />
+      <Header title="Informar Problema" />
 
       <Card style={styles}>
         <Input
@@ -57,9 +54,3 @@ export default function ProblemReport({ navigation }) {
     </Container>
   );
 }
-
-ProblemReport.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};

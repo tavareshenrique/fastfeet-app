@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 
-import { CommonActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import { formatDate } from '~/utils/dateFormat';
@@ -24,7 +24,9 @@ import {
   CityContent,
 } from './styles';
 
-export default function DeliveryItem({ data, navigation }) {
+export default function DeliveryItem({ data }) {
+  const navigation = useNavigation();
+
   function statusDelivery(dataStatus) {
     if (dataStatus.end_date) {
       return 'done';
@@ -58,14 +60,12 @@ export default function DeliveryItem({ data, navigation }) {
           </CityContent>
           <TouchableOpacity
             onPress={() => {
-              navigation.dispatch(
-                CommonActions.navigate({
-                  name: 'DeliveryDetail',
-                  params: {
-                    data,
-                  },
-                }),
-              );
+              navigation.navigate({
+                name: 'DeliveryDetail',
+                params: {
+                  data,
+                },
+              });
             }}
           >
             <ViewDetail>Ver detalhes</ViewDetail>
@@ -83,9 +83,5 @@ DeliveryItem.propTypes = {
       createdAt: PropTypes.string,
       city: PropTypes.string,
     }),
-  }).isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-    dispatch: PropTypes.func,
   }).isRequired,
 };

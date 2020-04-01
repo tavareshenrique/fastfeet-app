@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 import Lottie from 'lottie-react-native';
+
 import api from '~/services/api';
 import { formatDate } from '~/utils/dateFormat';
 
@@ -22,7 +24,10 @@ import {
   Date,
 } from './styles';
 
-export default function ViewProblems({ navigation, route }) {
+export default function ViewProblems() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
   const { id } = route.params;
 
   const [data, setData] = useState([]);
@@ -49,10 +54,7 @@ export default function ViewProblems({ navigation, route }) {
       <ScrollView>
         {data.length !== 0 ? (
           <>
-            <Header
-              title="Visualizar Problema"
-              handleBack={() => navigation.navigate('DeliveryDetail')}
-            />
+            <Header title="Visualizar Problema" />
 
             {data.map((delivery, index) => {
               if (index === 0) {
@@ -89,10 +91,7 @@ export default function ViewProblems({ navigation, route }) {
           </>
         ) : (
           <>
-            <Header
-              title="Visualizar Problema"
-              handleBack={() => navigation.navigate('DeliveryDetail')}
-            />
+            <Header title="Visualizar Problema" />
 
             <LottieComponent>
               <Lottie resizeMode="contain" source={empty} autoPlay loop />
@@ -103,14 +102,3 @@ export default function ViewProblems({ navigation, route }) {
     </Container>
   );
 }
-
-ViewProblems.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-  route: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.number,
-    }),
-  }).isRequired,
-};
