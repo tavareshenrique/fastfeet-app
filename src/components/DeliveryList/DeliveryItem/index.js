@@ -35,7 +35,6 @@ export default function DeliveryItem({ data, navigation }) {
 
     return 'pedding';
   }
-
   return (
     <ContentDelivery style={styles.shadow}>
       <HeaderDelivery>

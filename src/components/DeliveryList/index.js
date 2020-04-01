@@ -15,22 +15,63 @@ import empty from '~/assets/lottie/empty.json';
 
 import { Loading } from './styles';
 
-export default function DeliveryList({ typeFilter, navigation }) {
+export default function DeliveryList({
+  typeFilter,
+  setTypeFilter,
+  navigation,
+}) {
   const dataUser = useSelector((state) => state.auth.data);
   const setTakeOrder = useSelector((state) => state.delivery.setTakeOrder);
+  const confirmDelivery = useSelector(
+    (state) => state.delivery.confirmDelivery,
+  );
 
   const [dataDelivery, setDataDelivery] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingDelivery, setLoadingDelivery] = useState(false);
   const [page, setPage] = useState(2);
+  const [totalPage, setTotalPage] = useState(0);
+
+  useEffect(() => {
+    setPage(2);
+    setDataDelivery([]);
+  }, [typeFilter]);
+
+  useEffect(() => {
+    async function fetchDelivery() {
+      const id = dataUser.map((user) => user.id);
+
+      const params = {
+        page: 1,
+      };
+
+      if (confirmDelivery) {
+        params.delivered = true;
+        setTypeFilter('delivered');
+      }
+
+      setLoadingDelivery(true);
+      const response = await api.get(`deliverymen/${id}/deliveries`, {
+        params,
+      });
+
+      setDataDelivery(response.data);
+      setLoadingDelivery(false);
+    }
+
+    fetchDelivery();
+  }, [confirmDelivery]);
 
   useEffect(() => {
     async function fetchDelivery() {
       const id = dataUser.map((user) => user.id);
 
       let params = '';
-      const delivered = setTakeOrder;
+      let delivered = false;
 
+      if (setTakeOrder) {
+        delivered = false;
+      }
       if (typeFilter === 'pending') {
         params = {
           page: 1,
@@ -48,6 +89,7 @@ export default function DeliveryList({ typeFilter, navigation }) {
       });
 
       setDataDelivery(response.data);
+      setTotalPage(response.headers['x-total-page-count']);
       setLoadingDelivery(false);
     }
 
@@ -55,11 +97,15 @@ export default function DeliveryList({ typeFilter, navigation }) {
   }, [dataUser, typeFilter, setTakeOrder]);
 
   async function loadDelivery() {
+    const totalPageInt = parseInt(totalPage, 0);
+    const pageTotal = totalPageInt === 0 ? 1 : totalPageInt;
+
     if (loading) return;
+    if (page > pageTotal) return;
 
     const id = dataUser.map((user) => user.id);
-
     let params = '';
+
     if (typeFilter === 'pending') {
       params = {
         page,
@@ -76,9 +122,7 @@ export default function DeliveryList({ typeFilter, navigation }) {
       params,
     });
 
-    response.data.forEach((delivery) => {
-      setDataDelivery((oldDataDelivery) => [...oldDataDelivery, delivery]);
-    });
+    setDataDelivery([...dataDelivery, ...response.data]);
 
     setPage(page + 1);
     setLoading(false);
@@ -106,11 +150,8 @@ export default function DeliveryList({ typeFilter, navigation }) {
                   <DeliveryItem data={item} navigation={navigation} />
                 )}
                 keyExtractor={(item) => item.id.toString()}
-                onEndReached={({ distanceFromEnd }) => {
-                  if (distanceFromEnd < 0) return;
-                  loadDelivery();
-                }}
-                onEndReachedThreshold={0.2}
+                onEndReached={loadDelivery}
+                onEndReachedThreshold={0.1}
                 ListFooterComponent={renderLoading}
               />
             </>
@@ -131,6 +172,7 @@ export default function DeliveryList({ typeFilter, navigation }) {
 
 DeliveryList.propTypes = {
   typeFilter: PropTypes.string.isRequired,
+  setTypeFilter: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,

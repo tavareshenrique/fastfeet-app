@@ -88,7 +88,11 @@ export default function Delivery({ navigation }) {
         </HeaderContent>
       </Content>
 
-      <DeliveryList typeFilter={typeFilter} navigation={navigation} />
+      <DeliveryList
+        typeFilter={typeFilter}
+        setTypeFilter={setTypeFilter}
+        navigation={navigation}
+      />
     </Container>
   );
 }
