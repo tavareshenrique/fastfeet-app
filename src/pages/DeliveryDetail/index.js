@@ -7,7 +7,10 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { takeOrderRequest } from '~/store/modules/delivery/actions';
+import {
+  takeOrderRequest,
+  resetTakeOrder,
+} from '~/store/modules/delivery/actions';
 
 import { formatDate } from '~/utils/dateFormat';
 
@@ -47,6 +50,7 @@ export default function DeliveryDetail({ navigation, route }) {
 
   useEffect(() => {
     if (isTakeOrder) {
+      dispatch(resetTakeOrder());
       navigation.navigate('Delivery');
     }
   }, [isTakeOrder, navigation]);
@@ -183,7 +187,11 @@ export default function DeliveryDetail({ navigation, route }) {
               <Line />
 
               <MenuButton
-                onPress={() => navigation.navigate('ConfirmDelivery')}
+                onPress={() =>
+                  nav.navigate('ConfirmDelivery', {
+                    id,
+                  })
+                }
               >
                 <Icon
                   name="md-checkmark-circle-outline"

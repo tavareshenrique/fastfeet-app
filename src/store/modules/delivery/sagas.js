@@ -1,6 +1,8 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { showMessage } from 'react-native-flash-message';
 
+import { format, parseISO } from 'date-fns';
+
 import api from '~/services/api';
 
 import {
@@ -8,14 +10,14 @@ import {
   takeOrderRequestFailure,
   setProblemSuccess,
   setProblemFailure,
+  confirmDeliverySuccess,
+  confirmDeliveryFailure,
 } from './actions';
 
 export function* takeOrder({ payload }) {
   try {
     const { deliverymanId, orderId } = payload;
-    const date = new Date();
-    const dateTimezone = date.setHours(date.getHours() - 3);
-    const start_date = new Date(dateTimezone);
+    const start_date = new Date();
 
     yield call(
       api.put,
@@ -64,7 +66,36 @@ export function* setProblem({ payload }) {
   }
 }
 
+export function* confirmDelivery({ payload }) {
+  try {
+    const { deliverymanId, orderId, signature_id } = payload;
+    const end_date = new Date();
+
+    yield call(
+      api.put,
+      `deliverymen/${deliverymanId}/orders/${orderId}/status`,
+      { end_date, signature_id },
+    );
+
+    yield put(confirmDeliverySuccess());
+    showMessage({
+      message: 'Parabéns',
+      description: 'Obrigado por entregar a encomenda!',
+      type: 'success',
+    });
+  } catch (err) {
+    showMessage({
+      message: 'Ops!',
+      description:
+        'Houve um problema ao marcar essa encomenda como entregeu, tente novamente!',
+      type: 'danger',
+    });
+    yield put(confirmDeliveryFailure());
+  }
+}
+
 export default all([
   takeLatest('@delivery/TAKE_ORDER_REQUEST', takeOrder),
   takeLatest('@delivery/SET_PROBLEM_REQUEST', setProblem),
+  takeLatest('@delivery/CONFIRM_DELIVERY_REQUEST', confirmDelivery),
 ]);

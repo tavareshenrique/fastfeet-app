@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { Alert, ActivityIndicator } from 'react-native';
-import { useSelector } from 'react-redux';
-
-import { CommonActions } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
+
+import {
+  confirmDeliveryRequest,
+  resetConfirmDelivery,
+} from '~/store/modules/delivery/actions';
+
 import api from '~/services/api';
 
 import Header from '~/components/Header';
@@ -23,12 +28,27 @@ import {
   ClickContainer,
 } from './styles';
 
-export default function ConfirmDelivery({ navigation, route }) {
-  const { id } = useSelector((state) => state.auth.data);
-  // const { delivery_id } = route.params;
+export default function ConfirmDelivery({ navigation }) {
+  const dispatch = useDispatch();
+  const route = useRoute();
+
+  const deliveryman = useSelector((state) => state.auth.data);
+  const confirmDelivery = useSelector(
+    (state) => state.delivery.confirmDelivery,
+  );
+
+  const { id } = route.params;
+
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState();
   const [openCamera, setOpenCamera] = useState(false);
+
+  useEffect(() => {
+    if (confirmDelivery) {
+      dispatch(resetConfirmDelivery());
+      navigation.navigate('DeliveryDetail');
+    }
+  }, [confirmDelivery, navigation, dispatch]);
 
   async function handleOpenCamera() {
     setOpenCamera(true);
@@ -54,32 +74,23 @@ export default function ConfirmDelivery({ navigation, route }) {
   }
 
   async function handleDone() {
-    setLoading(true);
-    const params = {};
+    const idDeliverymen = deliveryman.map((deliverymen) => deliverymen.id);
 
+    setLoading(true);
+    let signature_id;
     try {
       if (image) {
         const data = new FormData();
-        data.append('file', {
+        data.append('signatures', {
           type: 'image/jpg',
           uri: image,
           name: 'assignature.jpg',
         });
-
-        const response = await api.post('files', data);
-        params.signature_id = response.data.id;
+        const response = await api.post('signatures', data);
+        signature_id = response.data.id;
       }
 
-      await api.put(`deliveryman/${id}/deliveries/${1}/end`, params);
-
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: 'Details',
-          params: {
-            id: 1,
-          },
-        }),
-      );
+      dispatch(confirmDeliveryRequest(idDeliverymen, id, signature_id));
     } catch (error) {
       Alert.alert(`${error.response.data.error || 'Error interno'}`);
     } finally {
