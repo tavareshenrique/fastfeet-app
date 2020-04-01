@@ -31,6 +31,8 @@ import {
   MenuButton,
   MenuText,
   Line,
+  Delivered,
+  CheckIcon,
 } from './styles';
 
 export default function DeliveryDetail() {
@@ -140,71 +142,82 @@ export default function DeliveryDetail() {
 
             <DataInformation>
               <Label>DATA DE ENTREGA</Label>
-              <Data>{deliveryDate}</Data>
+              <Delivered>
+                <Data>{deliveryDate}</Data>
+                {end_date && (
+                  <CheckIcon
+                    name="md-checkmark-circle-outline"
+                    color="#36A71D"
+                    size={15}
+                  />
+                )}
+              </Delivered>
             </DataInformation>
           </DateContent>
         </SecondaryCard>
 
-        <MenuCard style={styles}>
-          {start_date ? (
-            <>
-              <MenuButton
-                onPress={() =>
-                  navigation.navigate('ProblemReport', {
-                    id,
-                  })
-                }
-              >
-                <Icon name="md-close-circle-outline" size={30} color="red" />
-                <MenuText>Informar Problema</MenuText>
-              </MenuButton>
-
-              <Line />
-
-              <MenuButton
-                onPress={() => {
-                  navigation.navigate({
-                    name: 'ViewProblems',
-                    params: {
+        {!end_date && (
+          <MenuCard style={styles}>
+            {start_date ? (
+              <>
+                <MenuButton
+                  onPress={() =>
+                    navigation.navigate('ProblemReport', {
                       id,
-                    },
-                  });
-                }}
-              >
-                <Icon
-                  name="md-information-circle-outline"
-                  size={30}
-                  color="#e7ba40"
-                />
-                <MenuText>Visualizar Problema</MenuText>
-              </MenuButton>
+                    })
+                  }
+                >
+                  <Icon name="md-close-circle-outline" size={30} color="red" />
+                  <MenuText>Informar Problema</MenuText>
+                </MenuButton>
 
-              <Line />
+                <Line />
 
-              <MenuButton
-                onPress={() =>
-                  navigation.navigate('ConfirmDelivery', {
-                    id,
-                  })
-                }
-              >
-                <Icon
-                  name="md-checkmark-circle-outline"
-                  size={30}
-                  color="#7159c1"
-                />
-                <MenuText>Confirmar Entrega</MenuText>
-              </MenuButton>
-            </>
-          ) : (
-            <>
-              <MenuButton fullWidth onPress={takeOrder}>
-                <FontAwesome name="dolly" size={30} color="#7159c1" />
-                <MenuText>Retirar Encomenda</MenuText>
-              </MenuButton>
-            </>
-          )}
-        </MenuCard>
+                <MenuButton
+                  onPress={() => {
+                    navigation.navigate({
+                      name: 'ViewProblems',
+                      params: {
+                        id,
+                      },
+                    });
+                  }}
+                >
+                  <Icon
+                    name="md-information-circle-outline"
+                    size={30}
+                    color="#e7ba40"
+                  />
+                  <MenuText>Visualizar Problema</MenuText>
+                </MenuButton>
+
+                <Line />
+
+                <MenuButton
+                  onPress={() =>
+                    navigation.navigate('ConfirmDelivery', {
+                      id,
+                    })
+                  }
+                >
+                  <Icon
+                    name="md-checkmark-circle-outline"
+                    size={30}
+                    color="#7159c1"
+                  />
+                  <MenuText>Confirmar Entrega</MenuText>
+                </MenuButton>
+              </>
+            ) : (
+              <>
+                <MenuButton fullWidth onPress={takeOrder}>
+                  <FontAwesome name="dolly" size={30} color="#7159c1" />
+                  <MenuText>Retirar Encomenda</MenuText>
+                </MenuButton>
+              </>
+            )}
+          </MenuCard>
+        )}
       </ScrollView>
     </Container>
   );
