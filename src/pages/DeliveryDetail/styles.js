@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -87,4 +88,13 @@ export const Line = styled.View`
   height: 50px;
   margin-top: 10px;
   background: #a8a8a8;
+`;
+
+export const Delivered = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const CheckIcon = styled(Icon)`
+  margin-left: 5px;
 `;
