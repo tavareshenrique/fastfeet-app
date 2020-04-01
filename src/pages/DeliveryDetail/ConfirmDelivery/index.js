@@ -45,8 +45,8 @@ export default function ConfirmDelivery() {
 
   useEffect(() => {
     if (confirmDelivery) {
+      navigation.navigate('Delivery');
       dispatch(resetConfirmDelivery());
-      navigation.navigate('DeliveryDetail');
     }
   }, [confirmDelivery, navigation, dispatch]);
 
