@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Lottie from 'lottie-react-native';
@@ -51,54 +51,52 @@ export default function ViewProblems() {
 
   return (
     <Container>
-      <ScrollView>
-        {data.length !== 0 ? (
-          <>
-            <Header title="Visualizar Problema" />
+      {data.length === 0 ? (
+        <>
+          <Header title="Visualizar Problema" />
 
-            {data.map((delivery, index) => {
-              if (index === 0) {
-                return (
-                  <Card
-                    space={index}
-                    sizeIsOne={data.length === 1}
-                    key={delivery.id}
-                    style={styles}
-                  >
-                    <Information>
-                      <Description>
-                        {formatDescription(delivery.description)}
-                      </Description>
-                      <Date>{date(delivery.created_at)}</Date>
-                    </Information>
-                  </Card>
-                );
-              }
+          <LottieComponent>
+            <Lottie resizeMode="contain" source={empty} autoPlay loop />
+          </LottieComponent>
+        </>
+      ) : (
+        <ScrollView>
+          <Header title="Visualizar Problema" />
 
+          {data.map((delivery, index) => {
+            if (index === 0) {
               return (
-                <CardContent key={delivery.id}>
-                  <SecondaryCard space={index} style={styles}>
-                    <Information>
-                      <Description>
-                        {formatDescription(delivery.description)}
-                      </Description>
-                      <Date>{date(delivery.created_at)}</Date>
-                    </Information>
-                  </SecondaryCard>
-                </CardContent>
+                <Card
+                  space={index}
+                  sizeIsOne={data.length === 1}
+                  key={delivery.id}
+                  style={styles}
+                >
+                  <Information>
+                    <Description>
+                      {formatDescription(delivery.description)}
+                    </Description>
+                    <Date>{date(delivery.created_at)}</Date>
+                  </Information>
+                </Card>
               );
-            })}
-          </>
-        ) : (
-          <>
-            <Header title="Visualizar Problema" />
+            }
 
-            <LottieComponent>
-              <Lottie resizeMode="contain" source={empty} autoPlay loop />
-            </LottieComponent>
-          </>
-        )}
-      </ScrollView>
+            return (
+              <CardContent key={delivery.id}>
+                <SecondaryCard space={index} style={styles}>
+                  <Information>
+                    <Description>
+                      {formatDescription(delivery.description)}
+                    </Description>
+                    <Date>{date(delivery.created_at)}</Date>
+                  </Information>
+                </SecondaryCard>
+              </CardContent>
+            );
+          })}
+        </ScrollView>
+      )}
     </Container>
   );
 }
