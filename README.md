@@ -2,6 +2,10 @@
   <img alt="FastFeet" title="FastFeet" src="src/assets/fastfeet-logo@2x.png" width="300px" />
 </h1>
 
+<p align="center">
+  <img alt="License" src="https://img.shields.io/github/license/tavareshenrique/fastfeet-app">
+</p>
+
 <h3 align="center">
   FastFeet is an application for a fictional shipping company, developed with React Native during Rocketseat's Bootcamp. This project is part of Rocketseat's Bootcamp certification.
 </h3>
