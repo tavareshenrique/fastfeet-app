@@ -106,4 +106,4 @@ react-native start
 
 ## License
 
-Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE.md](https://github.com/tavareshenrique/fastfeet-app/blob/master/LICENSE.md) para obter detalhes.
+This project is licensed under the MIT license - see the archive [LICENSE.md](https://github.com/tavareshenrique/fastfeet-app/blob/master/LICENSE.md) for details.
