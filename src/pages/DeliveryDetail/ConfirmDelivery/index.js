@@ -117,11 +117,13 @@ export default function ConfirmDelivery() {
               ) : (
                 <ClickContainer>
                   <SelectImageText>Clique para ativar a câmera</SelectImageText>
-                  <Icons name="touch-app" color="#816fe7" size={30} />
+                  <Icons name="touch-app" color="#7159c1" size={30} />
                 </ClickContainer>
               )}
             </SelectImageButton>
-            <Button onPress={handleDone}>Enviar</Button>
+            <Button color="#7159c1" onPress={handleDone}>
+              Enviar
+            </Button>
           </Container>
         ) : (
           <Camera

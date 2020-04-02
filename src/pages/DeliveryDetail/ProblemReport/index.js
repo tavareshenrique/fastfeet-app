@@ -47,7 +47,7 @@ export default function ProblemReport() {
           type="text"
         />
 
-        <Button loading={false} onPress={handleSubmit}>
+        <Button color="#7159c1" loading={false} onPress={handleSubmit}>
           Enviar
         </Button>
       </Card>
