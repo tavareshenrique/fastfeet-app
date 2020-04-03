@@ -3,12 +3,23 @@
 </h1>
 
 <p align="center">
-  <img alt="License" src="https://img.shields.io/github/license/tavareshenrique/fastfeet-app">
+  <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/tavareshenrique/fastfeet-app?color=7D40E7">
+  <img alt="Made by Henrique Tavares" src="https://img.shields.io/badge/made%20by-Henrique Tavares-%20?color=7D40E7">
+  <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/tavareshenrique/fastfeet-app?color=7D40E7">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/tavareshenrique/fastfeet-app?color=7D40E7">
+  <img alt="GitHub license" src="https://img.shields.io/github/license/tavareshenrique/fastfeet-app?color=7D40E7">
 </p>
 
-<h3 align="center">
+<p align="center">
+  <a href="#warning-attention">⚠️ Attention</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-how-to-use">ℹ️ How To Use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-technologies">🚀 Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#computer-author">💻 Author</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-license">📝 License</a>
+</p>
+<p align="center">
   FastFeet is an application for a fictional shipping company, developed with React Native during Rocketseat's Bootcamp. This project is part of Rocketseat's Bootcamp certification.
-</h3>
+</p>
 
 ---
 
@@ -26,13 +37,15 @@
 
 ---
 
-<h3 align="center">
-  ⚠️ Attention: this app did not have a chance to be tested on iOS, it was tested only on Android, so there may be some problems when using it on iOS in this first version. ⚠️
-</h3>
+# :warning: Attention
+
+<h4 align="center">
+  This app did not have a chance to be tested on iOS, it was tested only on Android, so there may be some problems when using it on iOS in this first version.
+</h4>
 
 ---
 
-## Installing and Running
+# :information_source: How To Use
 
 Clone the repository:
 
@@ -70,7 +83,7 @@ yarn start
 react-native start
 ```
 
-## Technology
+# :rocket: Technologies
 
 - [React Native](https://reactnative.dev/)
 - [Axios](https://github.com/axios/axios)
@@ -90,7 +103,7 @@ react-native start
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 
-## Author
+# :computer: Author
 
 <table>
   <tr>
@@ -103,11 +116,13 @@ react-native start
         </sub>
        </a>
        <br />
-       <a href="https://github.com/tavareshenrique/fastfeet-app/commits?author=tavareshenrique" title="Code">@tavareshenrique</a>
+       <a href="https://www.linkedin.com/in/tavareshenrique/" title="Linkedin">@tavareshenrique</a>
+       <br />
+       <a href="https://github.com/tavareshenrique/fastfeet-app/commits?author=tavareshenrique" title="Code">💻</a>
     </td>
   </tr>
 </table>
 
-## License
+# :memo: License
 
 This project is licensed under the MIT license - see the archive [LICENSE.md](https://github.com/tavareshenrique/fastfeet-app/blob/master/LICENSE.md) for details.
