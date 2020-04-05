@@ -1,7 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { showMessage } from 'react-native-flash-message';
-
-import { format, parseISO } from 'date-fns';
+import { translateErrorMessages } from 'fastfeet-translation-errors';
 
 import api from '~/services/api';
 
@@ -34,8 +33,7 @@ export function* takeOrder({ payload }) {
   } catch (err) {
     showMessage({
       message: 'Ops!',
-      description:
-        'Você já atingiu o maximo de retirada de encomendas por dia(5) ou a horário de retirada não permitido, tente mais tarde!',
+      description: translateErrorMessages(err.response.data.error),
       type: 'danger',
     });
     yield put(takeOrderRequestFailure());

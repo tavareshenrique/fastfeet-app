@@ -17,6 +17,7 @@
   <a href="#computer-author">💻 Author</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-license">📝 License</a>
 </p>
+
 <p align="center">
   FastFeet is an application for a fictional shipping company, developed with React Native during Rocketseat's Bootcamp. This project is part of Rocketseat's Bootcamp certification.
 </p>
@@ -102,6 +103,7 @@ react-native start
 - [Styled Components](https://www.styled-components.com/)
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
+- [FastFeet Translation Errors](https://github.com/tavareshenrique/fastfeet-translation-errors)
 
 # :computer: Author
 

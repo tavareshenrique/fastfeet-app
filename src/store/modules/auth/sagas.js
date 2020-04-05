@@ -1,5 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { showMessage } from 'react-native-flash-message';
+import { translateErrorMessages } from 'fastfeet-translation-errors';
 
 import api from '~/services/api';
 
@@ -29,18 +30,10 @@ export function* signIn({ payload }) {
   } catch (err) {
     showMessage({
       message: 'Falha na autenticação!',
-      description: 'Houve um erro no login, verifique seus dados',
+      description: translateErrorMessages(err.response.data.error),
       type: 'danger',
     });
     yield put(signFailure());
   }
 }
-
-export function signOut() {
-  // history.push('/');
-}
-
-export default all([
-  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
-  takeLatest('@auth/SIGN_OUT', signOut),
-]);
+export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);

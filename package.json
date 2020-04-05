@@ -21,6 +21,7 @@
     "axios": "^0.19.2",
     "date-fns": "^2.11.0",
     "date-fns-tz": "^1.0.10",
+    "fastfeet-translation-errors": "^1.0.0",
     "immer": "^6.0.2",
     "lottie-ios": "3.1.6",
     "lottie-react-native": "^3.3.2",
