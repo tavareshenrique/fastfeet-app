@@ -73,7 +73,49 @@ export default function DeliveryList({ typeFilter, setTypeFilter }) {
     }
 
     fetchDelivery();
-  }, [dataUser, typeFilter, setTypeFilter, setTakeOrder, confirmDelivery]);
+  }, [typeFilter, setTypeFilter, setTakeOrder, confirmDelivery]);
+
+  useEffect(() => {
+    async function fetchDelivery() {
+      const id = dataUser.map((user) => user.id);
+      const params = {};
+      let selectTypeFilter = 'pending';
+
+      if (setTakeOrder) {
+        setTypeFilter('pending');
+        setPage(2);
+        selectTypeFilter = 'pending';
+      }
+
+      if (confirmDelivery) {
+        setTypeFilter('delivered');
+        setPage(2);
+        selectTypeFilter = 'delivered';
+      }
+
+      if (!setTakeOrder && !confirmDelivery) {
+        selectTypeFilter = typeFilter;
+      }
+
+      if (selectTypeFilter === 'pending') {
+        params.page = 1;
+      } else {
+        params.page = 1;
+        params.delivered = true;
+      }
+
+      setLoadingDelivery(true);
+      const response = await api.get(`deliverymen/${id}/deliveries`, {
+        params,
+      });
+
+      setDataDelivery(response.data);
+      setTotalPage(response.headers['x-total-page-count']);
+      setLoadingDelivery(false);
+    }
+
+    fetchDelivery();
+  }, [dataUser]);
 
   async function loadDelivery() {
     const totalPageInt = parseInt(totalPage, 0);
