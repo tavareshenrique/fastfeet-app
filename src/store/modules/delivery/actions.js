@@ -48,6 +48,12 @@ export function setProblemFailure() {
   };
 }
 
+export function resetSetProblem() {
+  return {
+    type: '@delivery/RESET_PROBLEM_REQUEST',
+  };
+}
+
 export function confirmDeliveryRequest(deliverymanId, orderId, signature_id) {
   return {
     type: '@delivery/CONFIRM_DELIVERY_REQUEST',

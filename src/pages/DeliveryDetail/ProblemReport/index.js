@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-import { setProblemRequest } from '~/store/modules/delivery/actions';
+import {
+  setProblemRequest,
+  resetSetProblem,
+} from '~/store/modules/delivery/actions';
 
 import Header from '~/components/Header';
 import Button from '~/components/Button';
@@ -27,6 +30,7 @@ export default function ProblemReport() {
   useEffect(() => {
     if (setProblem) {
       navigation.navigate('DeliveryDetail');
+      dispatch(resetSetProblem());
     }
   }, [setProblem, navigation]);
 

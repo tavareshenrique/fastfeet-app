@@ -37,6 +37,10 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.setProblem = false;
         break;
       }
+      case '@delivery/RESET_PROBLEM_REQUEST': {
+        draft.setProblem = false;
+        break;
+      }
       case '@delivery/CONFIRM_DELIVERY_REQUEST': {
         draft.confirmDelivery = false;
         break;
