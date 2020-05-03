@@ -66,11 +66,6 @@ https://github.com/tavareshenrique/fastfeet-api
 # Install the App on your Android
 yarn android
 # or
-react-native run android
-
-# Install the App on your Android
-yarn android
-# or
 react-native run-android
 
 # Install the App on your iOS
